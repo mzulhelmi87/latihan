@@ -212,12 +212,12 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
   <!-- ============ KUIZ ============ -->
   <section id="p-kuiz" role="tabpanel" aria-labelledby="tab-kuiz" hidden>
     <div id="quiz-menu">
-      <div class="panel-head"><h2>Kuiz Tauhid</h2><span class="pages">Pilih satu topik</span></div>
+      <div class="panel-head"><h2>Kuiz Tauhid</h2><span class="pages">Setiap set 10 soalan, berbeza setiap kali dibuka</span></div>
       <div class="menu-grid">
-        <button type="button" class="topic" data-topic="sifat"><span class="topic-no">1</span><span class="topic-name">Sifat Wajib &amp; Mustahil</span><span class="topic-sub">18 soalan · m/s 1–22</span></button>
-        <button type="button" class="topic" data-topic="malaikat"><span class="topic-no">2</span><span class="topic-name">Beriman kepada Malaikat</span><span class="topic-sub">18 soalan · m/s 23–32</span></button>
-        <button type="button" class="topic" data-topic="kitab"><span class="topic-no">3</span><span class="topic-name">Beriman kepada Kitab</span><span class="topic-sub">18 soalan · m/s 33–39</span></button>
-        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran semua topik</span><span class="topic-sub">15 soalan rawak</span></button>
+        <button type="button" class="topic" data-topic="sifat"><span class="topic-no">1</span><span class="topic-name">Sifat Wajib &amp; Mustahil</span><span class="topic-sub" data-pages="m/s 1–22"></span></button>
+        <button type="button" class="topic" data-topic="malaikat"><span class="topic-no">2</span><span class="topic-name">Beriman kepada Malaikat</span><span class="topic-sub" data-pages="m/s 23–32"></span></button>
+        <button type="button" class="topic" data-topic="kitab"><span class="topic-no">3</span><span class="topic-name">Beriman kepada Kitab</span><span class="topic-sub" data-pages="m/s 33–39"></span></button>
+        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran semua topik</span><span class="topic-sub" data-pages="semua topik"></span></button>
       </div>
     </div>
     <div id="quiz-stage" hidden></div>
@@ -513,6 +513,47 @@ const QUIZ = {
       'قُلْ هُوَ اللَّهُ أَحَدٌ', 'اللَّهُ الصَّمَدُ', 'لَمْ يَلِدْ وَلَمْ يُولَدْ', 'وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ' ] },
     { t: 'mcq', q: 'Apakah faedah mengenal Allah bersifat baqa\'?', o: ['Sentiasa ingat mati', 'Malas beribadat', 'Suka menunjuk-nunjuk', 'Lupa kepada Allah'], a: 0 },
     { t: 'mcq', q: 'Apakah hukum mengenal Allah bersifat wahdaniyyah?', o: ['Wajib', 'Sunat', 'Harus', 'Makruh'], a: 0 },
+    // --- tambahan ---
+    { t: 'tf', q: 'Qidam ialah sifat wajib bagi Allah.', a: true },
+    { t: 'mcq', q: 'Lawan bagi sifat qidam ialah...', o: ['Huduth', "Fana'", "Ta'addud", 'Mumathalatuhu ta\'ala lil hawadith'], a: 0 },
+    { t: 'mcq', q: "Lawan bagi sifat baqa' ialah...", o: ["Fana'", 'Huduth', "Ta'addud", 'Qiyamuhu ta\'ala bighairihi'], a: 0 },
+    { t: 'mcq', q: 'Lawan bagi sifat wahdaniyyah ialah...', o: ["Ta'addud", 'Huduth', "Fana'", 'Mumathalatuhu ta\'ala lil hawadith'], a: 0 },
+    { t: 'mcq', q: 'Lawan bagi sifat qiyamuhu ta\'ala binafsihi ialah...', o: ['Qiyamuhu ta\'ala bighairihi', 'Huduth', "Ta'addud", "Fana'"], a: 0 },
+    { t: 'mcq', q: 'Lawan bagi sifat mukhalafatuhu ta\'ala lil hawadith ialah...', o: ['Mumathalatuhu ta\'ala lil hawadith', 'Qiyamuhu ta\'ala bighairihi', 'Huduth', "Ta'addud"], a: 0 },
+    { t: 'mcq', q: 'Mukhalafatuhu ta\'ala lil hawadith bermaksud...', o: ['Berlainan dengan yang baharu (makhluk)', 'Berdiri dengan sendiri', 'Sedia ada', 'Kekal'], a: 0 },
+    { t: 'mcq', q: 'Qiyamuhu ta\'ala binafsihi bermaksud...', o: ['Berdiri dengan sendiri', 'Berlainan dengan yang baharu', 'Esa', 'Sedia ada'], a: 0 },
+    { t: 'mcq', q: `Sifat ${AR('وَحْدَانِيَّةٌ')} (wahdaniyyah) bermaksud...`, o: ['Esa', 'Kekal', 'Sedia ada', 'Berdiri dengan sendiri'], a: 0 },
+    { t: 'mcq', q: 'Mumathalatuhu ta\'ala lil hawadith bermaksud...', o: ['Bersamaan dengan yang baharu', 'Berlainan dengan yang baharu', 'Berdiri dengan yang lain', 'Binasa'], a: 0 },
+    { t: 'mcq', q: 'Qiyamuhu ta\'ala bighairihi bermaksud Allah...', o: ['Berhajat kepada tempat dan yang menjadikan-Nya', 'Tidak berhajat kepada sesiapa', 'Kekal selama-lamanya', 'Maha Esa'], a: 0, why: 'Sifat ini mustahil bagi Allah.' },
+    { t: 'mcq', q: 'Binasa ialah sifat bagi...', o: ['Makhluk', 'Allah', 'Al-Quran', 'Malaikat sahaja'], a: 0 },
+    { t: 'tf', q: 'Alam ini ada permulaan dan ada penghujungnya.', a: true, why: 'Alam ini baharu. Setiap yang baharu dicipta oleh Allah.' },
+    { t: 'tf', q: 'Setiap yang baharu dicipta oleh Allah.', a: true },
+    { t: 'tf', q: 'Allah sama dengan makhluk-Nya.', a: false, why: 'Allah bersifat mukhalafatuhu ta\'ala lil hawadith, iaitu berlainan dengan makhluk.' },
+    { t: 'tf', q: 'Sifat Allah tidak sama dengan sifat makhluk.', a: true },
+    { t: 'tf', q: 'Manusia tidak boleh hidup tanpa bertuhankan Allah.', a: true },
+    { t: 'tf', q: 'Allah kekal selama-lamanya.', a: true },
+    { t: 'tf', q: 'Allah ada dua, iaitu Tuhan langit dan Tuhan bumi.', a: false, why: 'Allah Maha Esa (wahdaniyyah). Berbilang-bilang (ta\'addud) mustahil bagi Allah.' },
+    { t: 'mcq', q: 'Apakah faedah mengenal Allah bersifat qidam?', o: ['Iman semakin kukuh', 'Suka bergaduh', 'Malas belajar', 'Lupa bersyukur'], a: 0 },
+    { t: 'mcq', q: 'Apakah faedah mengenal sifat mukhalafatuhu ta\'ala lil hawadith?', o: ['Tidak menyamakan Allah dengan makhluk', 'Sombong dengan kawan', 'Meninggalkan solat', 'Membazir masa'], a: 0 },
+    { t: 'mcq', q: 'Apakah faedah mengenal Allah bersifat wahdaniyyah?', o: ['Tidak mempersekutukan Allah', 'Menyembah berhala', 'Percaya ada banyak tuhan', 'Malas beribadat'], a: 0 },
+    { t: 'mcq', q: 'Apakah faedah mengenal sifat qiyamuhu ta\'ala binafsihi?', o: ['Mengakui kelemahan diri', 'Berasa diri paling hebat', 'Tidak perlu berdoa', 'Tidak perlu bantuan Allah'], a: 0 },
+    { t: 'mcq', q: `Ayat ${AR('اللَّهُ الصَّمَدُ')} terdapat dalam surah...`, o: ['Al-Ikhlas', 'Al-Hadid', 'Ar-Rahman', 'Asy-Syura'], a: 0, why: 'Maksudnya: Allah tempat bergantung segala makhluk.' },
+    { t: 'mcq', q: "Dalil naqli sifat baqa' terdapat dalam...", o: ['Surah ar-Rahman: 26–27', 'Surah al-Hadid: 3', 'Surah Muhammad: 38', 'Surah al-Ikhlas: 1–4'], a: 0 },
+    { t: 'mcq', q: 'Dalil naqli sifat qiyamuhu ta\'ala binafsihi terdapat dalam...', o: ['Surah Muhammad: 38', 'Surah asy-Syura: 11', 'Surah ar-Rahman: 26–27', 'Surah al-Hadid: 3'], a: 0 },
+    { t: 'match', q: 'Padankan sifat wajib dengan surah dalil naqlinya.', L: 'Sifat', R: 'Dalil naqli', pairs: [
+      ['Qidam', 'Al-Hadid: 3'], ["Baqa'", 'Ar-Rahman: 26–27'], ['Mukhalafatuhu ta\'ala lil hawadith', 'Asy-Syura: 11'],
+      ['Qiyamuhu ta\'ala binafsihi', 'Muhammad: 38'], ['Wahdaniyyah', 'Al-Ikhlas: 1–4'] ] },
+    { t: 'match', q: 'Padankan sifat mustahil dengan maksudnya.', L: 'Sifat mustahil', R: 'Maksud', pairs: [
+      ['Huduth', 'Baharu (ada permulaan)'], ["Fana'", 'Binasa'], ['Mumathalatuhu ta\'ala lil hawadith', 'Bersamaan dengan yang baharu'],
+      ['Qiyamuhu ta\'ala bighairihi', 'Berdiri dengan yang lain'], ["Ta'addud", 'Berbilang-bilang'] ] },
+    { t: 'order', q: "Susun dalil aqli sifat baqa' mengikut urutan yang betul.", items: [
+      'Allah kekal selama-lamanya.', "Jika Allah tidak bersifat baqa', tentulah Allah akan binasa.", 'Binasa itu sifat makhluk.' ] },
+    { t: 'order', q: 'Susun dalil aqli sifat mukhalafatuhu ta\'ala lil hawadith mengikut urutan yang betul.', items: [
+      'Jika Allah tidak berlainan dengan yang baharu, tentu Allah sama dengan makhluk.', 'Menyerupai makhluk ialah sifat kekurangan bagi Allah.', 'Kekurangan adalah mustahil bagi Allah.' ] },
+    { t: 'order', q: 'Susun sifat wajib mengikut urutan dalam buku teks.', items: [
+      'Qidam', "Baqa'", 'Mukhalafatuhu ta\'ala lil hawadith', 'Qiyamuhu ta\'ala binafsihi', 'Wahdaniyyah' ] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Allah', 'tidak', 'sama', 'dengan', 'makhluk'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Allah', 'kekal', 'selama-lamanya'] },
   ],
 
   malaikat: [
@@ -540,6 +581,39 @@ const QUIZ = {
     { t: 'order', q: 'Susun rukun iman mengikut urutan yang betul.', items: [
       'Beriman kepada Allah', 'Beriman kepada malaikat', 'Beriman kepada kitab', 'Beriman kepada rasul', 'Beriman kepada hari akhirat', 'Beriman kepada qada\' dan qadar' ] },
     { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Malaikat', 'dijadikan', 'daripada', 'cahaya'] },
+    // --- tambahan ---
+    { t: 'tf', q: 'Malaikat boleh dilihat oleh pancaindera manusia.', a: false, why: 'Malaikat tidak boleh dilihat oleh pancaindera.' },
+    { t: 'tf', q: 'Malaikat dicipta dengan tugas-tugas tertentu.', a: true },
+    { t: 'tf', q: 'Malaikat tidak bersuami dan tidak beristeri.', a: true },
+    { t: 'tf', q: 'Bilangan malaikat sangat banyak.', a: true },
+    { t: 'tf', q: 'Malaikat Mikail bertugas mencabut nyawa.', a: false, why: 'Mikail membawa rezeki. Yang mencabut nyawa ialah Izrail.' },
+    { t: 'tf', q: 'Malaikat Raqib mencatat segala amalan baik.', a: true },
+    { t: 'tf', q: 'Malaikat sentiasa mentaati perintah Allah.', a: true },
+    { t: 'tf', q: 'Malaikat Israfil bertugas meniup sangkakala.', a: true },
+    { t: 'tf', q: 'Malaikat Atid mencatat amalan baik.', a: false, why: 'Atid mencatat amalan buruk. Raqib mencatat amalan baik.' },
+    { t: 'mcq', q: 'Malaikat yang membawa rezeki ialah...', o: ['Mikail', 'Jibril', 'Malik', 'Raqib'], a: 0 },
+    { t: 'mcq', q: 'Malaikat yang mencabut nyawa ialah...', o: ['Izrail', 'Israfil', 'Mikail', 'Ridwan'], a: 0 },
+    { t: 'mcq', q: 'Malaikat yang meniup sangkakala ialah...', o: ['Israfil', 'Izrail', 'Jibril', 'Atid'], a: 0 },
+    { t: 'mcq', q: 'Malaikat yang menjaga neraka ialah...', o: ['Malik', 'Ridwan', 'Munkar', 'Mikail'], a: 0 },
+    { t: 'mcq', q: 'Malaikat yang menjaga syurga ialah...', o: ['Ridwan', 'Malik', 'Nakir', 'Israfil'], a: 0 },
+    { t: 'mcq', q: 'Malaikat yang mencatat segala amalan baik ialah...', o: ['Raqib', 'Atid', 'Jibril', 'Malik'], a: 0 },
+    { t: 'mcq', q: 'Dua malaikat yang menyoal mayat di dalam kubur ialah...', o: ['Munkar dan Nakir', 'Raqib dan Atid', 'Jibril dan Mikail', 'Malik dan Ridwan'], a: 0 },
+    { t: 'mcq', q: 'Apakah tugas malaikat Jibril?', o: ['Menyampaikan wahyu', 'Membawa rezeki', 'Menjaga syurga', 'Meniup sangkakala'], a: 0 },
+    { t: 'mcq', q: 'Apakah tugas malaikat Atid?', o: ['Mencatat amalan buruk', 'Mencatat amalan baik', 'Menjaga neraka', 'Mencabut nyawa'], a: 0 },
+    { t: 'mcq', q: 'Rukun iman yang kedua ialah...', o: ['Beriman kepada malaikat', 'Beriman kepada Allah', 'Beriman kepada kitab', 'Beriman kepada rasul'], a: 0 },
+    { t: 'mcq', q: 'Manakah yang BUKAN sifat malaikat?', o: ['Makan dan minum', 'Tidak tidur', 'Taat kepada Allah', 'Dijadikan daripada cahaya'], a: 0 },
+    { t: 'mcq', q: 'Apakah hukum beriman kepada malaikat?', o: ['Wajib', 'Sunat', 'Harus', 'Makruh'], a: 0 },
+    { t: 'mcq', q: `Nama malaikat ${AR('رضوان')} ialah...`, o: ['Ridwan', 'Raqib', 'Malik', 'Izrail'], a: 0 },
+    { t: 'mcq', q: `Nama malaikat ${AR('عزرائيل')} ialah...`, o: ['Izrail', 'Israfil', 'Mikail', 'Jibril'], a: 0 },
+    { t: 'mcq', q: `Nama malaikat ${AR('ميكائيل')} ialah...`, o: ['Mikail', 'Malik', 'Munkar', 'Nakir'], a: 0 },
+    { t: 'mcq', q: `Malaikat ${AR('رقيب')} bertugas...`, o: ['Mencatat amalan baik', 'Mencatat amalan buruk', 'Menjaga neraka', 'Membawa rezeki'], a: 0 },
+    { t: 'match', q: 'Padankan nama malaikat dalam tulisan Jawi dengan tulisan Rumi.', L: 'Jawi', R: 'Rumi', pairs: [
+      [AR('جبريل'), 'Jibril'], [AR('اسرافيل'), 'Israfil'], [AR('مالك'), 'Malik'], [AR('عتيد'), 'Atid'], [AR('نكير'), 'Nakir'] ] },
+    { t: 'match', q: 'Padankan malaikat dengan tempat atau tugasnya.', L: 'Malaikat', R: 'Tugas', pairs: [
+      ['Ridwan', 'Syurga'], ['Malik', 'Neraka'], ['Munkar', 'Kubur'], ['Israfil', 'Sangkakala'] ] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Malaikat', 'Ridwan', 'menjaga', 'syurga'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Malaikat', 'sentiasa', 'taat', 'kepada', 'Allah'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Mikail', 'membawa', 'rezeki'] },
   ],
 
   kitab: [
@@ -564,6 +638,40 @@ const QUIZ = {
     { t: 'mcq', q: 'Nabi Idris a.s. menerima sebanyak ______ suhuf.', o: ['30', '10', '50', '40'], a: 0 },
     { t: 'order', q: 'Susun mengikut bilangan suhuf, daripada paling sedikit kepada paling banyak.', items: ['Nabi Adam a.s. (10)', 'Nabi Idris a.s. (30)', 'Nabi Syith a.s. (50)'] },
     { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Kitab', 'Zabur', 'diturunkan', 'kepada', 'Nabi Daud'] },
+    // --- tambahan ---
+    { t: 'mcq', q: 'Kitab Taurat diturunkan kepada...', o: ['Nabi Musa a.s.', 'Nabi Isa a.s.', 'Nabi Daud a.s.', 'Nabi Muhammad ﷺ'], a: 0 },
+    { t: 'mcq', q: 'Kitab Injil diturunkan kepada...', o: ['Nabi Isa a.s.', 'Nabi Musa a.s.', 'Nabi Daud a.s.', 'Nabi Ibrahim a.s.'], a: 0 },
+    { t: 'mcq', q: 'Nabi Musa a.s. menerima kitab...', o: ['Taurat', 'Zabur', 'Injil', 'Al-Quran'], a: 0 },
+    { t: 'mcq', q: 'Nabi Isa a.s. menerima kitab...', o: ['Injil', 'Taurat', 'Zabur', 'Al-Quran'], a: 0 },
+    { t: 'mcq', q: 'Kitab Injil diturunkan dalam bahasa...', o: ['Suryani', 'Arab', 'Qibti', 'Ibrani'], a: 0 },
+    { t: 'mcq', q: 'Kitab Zabur diturunkan dalam bahasa...', o: ['Qibti', 'Arab', 'Suryani', 'Ibrani'], a: 0, why: 'Mengikut buku teks m/s 39.' },
+    { t: 'mcq', q: 'Kitab Taurat diturunkan dalam bahasa...', o: ['Ibrani', 'Qibti', 'Arab', 'Suryani'], a: 0, why: 'Mengikut buku teks m/s 39.' },
+    { t: 'mcq', q: 'Al-Quran diturunkan dalam bahasa...', o: ['Arab', 'Ibrani', 'Suryani', 'Qibti'], a: 0 },
+    { t: 'tf', q: 'Kitab Zabur diturunkan kepada Nabi Daud a.s.', a: true },
+    { t: 'tf', q: 'Kitab Taurat diturunkan kepada Nabi Isa a.s.', a: false, why: 'Taurat diturunkan kepada Nabi Musa a.s. Nabi Isa a.s. menerima Injil.' },
+    { t: 'tf', q: 'Kitab diturunkan kepada nabi dan rasul.', a: true },
+    { t: 'tf', q: 'Kita hanya perlu beriman kepada al-Quran sahaja.', a: false, why: 'Kita wajib beriman kepada semua kitab yang diturunkan oleh Allah.' },
+    { t: 'tf', q: 'Nabi Adam a.s. menerima 10 suhuf.', a: true },
+    { t: 'tf', q: 'Nabi Ibrahim a.s. menerima 50 suhuf.', a: false, why: 'Nabi Ibrahim a.s. menerima 10 suhuf. Yang menerima 50 suhuf ialah Nabi Syith a.s.' },
+    { t: 'tf', q: 'Kitab Injil diturunkan dalam bahasa Suryani.', a: true },
+    { t: 'mcq', q: 'Nabi Adam a.s. menerima sebanyak ______ suhuf.', o: ['10', '30', '50', '20'], a: 0 },
+    { t: 'mcq', q: 'Nabi yang menerima 50 suhuf ialah...', o: ['Nabi Syith a.s.', 'Nabi Adam a.s.', 'Nabi Idris a.s.', 'Nabi Musa a.s.'], a: 0 },
+    { t: 'mcq', q: 'Nabi yang menerima 30 suhuf ialah...', o: ['Nabi Idris a.s.', 'Nabi Syith a.s.', 'Nabi Ibrahim a.s.', 'Nabi Adam a.s.'], a: 0 },
+    { t: 'mcq', q: 'Suhuf dari segi istilah ialah...', o: ['Wahyu yang diturunkan kepada nabi dan rasul berbentuk lembaran', 'Buku cerita nabi', 'Nama sebuah kitab', 'Doa selepas solat'], a: 0 },
+    { t: 'mcq', q: 'Antara nabi yang menerima suhuf ialah...', o: ['Nabi Ibrahim a.s.', 'Nabi Isa a.s.', 'Nabi Daud a.s.', 'Nabi Muhammad ﷺ'], a: 0 },
+    { t: 'mcq', q: 'Manakah amalan yang baik bagi orang yang beriman kepada kitab?', o: ['Membaca al-Quran setiap hari', 'Meletakkan al-Quran di lantai', 'Tidak pernah membuka al-Quran', 'Bercakap semasa orang mengaji'], a: 0 },
+    { t: 'mcq', q: `Kitab ${AR('التوراة')} ialah...`, o: ['Taurat', 'Zabur', 'Injil', 'Al-Quran'], a: 0 },
+    { t: 'mcq', q: `Kitab ${AR('الزبور')} ialah...`, o: ['Zabur', 'Taurat', 'Injil', 'Al-Quran'], a: 0 },
+    { t: 'mcq', q: `Kitab ${AR('الإنجيل')} diturunkan kepada...`, o: ['Nabi Isa a.s.', 'Nabi Musa a.s.', 'Nabi Daud a.s.', 'Nabi Muhammad ﷺ'], a: 0 },
+    { t: 'match', q: 'Padankan nama kitab dalam tulisan Jawi dengan tulisan Rumi.', L: 'Jawi', R: 'Rumi', pairs: [
+      [AR('القرءان'), 'Al-Quran'], [AR('الإنجيل'), 'Injil'], [AR('الزبور'), 'Zabur'], [AR('التوراة'), 'Taurat'] ] },
+    { t: 'match', q: 'Padankan nabi dengan bilangan suhuf yang diterima.', L: 'Nabi', R: 'Suhuf', pairs: [
+      ['Nabi Adam a.s.', '10 suhuf'], ['Nabi Idris a.s.', '30 suhuf'], ['Nabi Syith a.s.', '50 suhuf'] ] },
+    { t: 'match', q: 'Padankan nabi dengan kitab yang diterima.', L: 'Nabi', R: 'Kitab', pairs: [
+      ['Nabi Musa a.s.', 'Taurat'], ['Nabi Daud a.s.', 'Zabur'], ['Nabi Isa a.s.', 'Injil'], ['Nabi Muhammad ﷺ', 'Al-Quran'] ] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Al-Quran', 'diturunkan', 'dalam', 'bahasa', 'Arab'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Kitab', 'menjadi', 'panduan', 'hidup'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Nabi Musa', 'menerima', 'kitab', 'Taurat'] },
   ],
 };
 
@@ -584,13 +692,25 @@ function answerText(q) {
   return q.ar ? `<span class="ar">${q.items.join(' ، ')}</span>` : q.items.join(' → ');
 }
 
+const PER_SET = 10;
+const bankOf = t => t === 'campur' ? [...QUIZ.sifat, ...QUIZ.malaikat, ...QUIZ.kitab] : QUIZ[t];
+// Utamakan soalan yang belum keluar supaya setiap set berbeza; reset bila hampir habis.
+function pickSet(topic) {
+  const bank = bankOf(topic);
+  let seen = [];
+  try { seen = JSON.parse(localStorage.getItem('tauhid2-seen-' + topic) || '[]'); } catch (e) {}
+  let fresh = bank.map((_, i) => i).filter(i => !seen.includes(i));
+  if (fresh.length < PER_SET) { seen = []; fresh = bank.map((_, i) => i); }
+  const chosen = shuffle(fresh).slice(0, PER_SET);
+  try { localStorage.setItem('tauhid2-seen-' + topic, JSON.stringify([...seen, ...chosen])); } catch (e) {}
+  return chosen.map(i => bank[i]);
+}
+
 const menu = document.getElementById('quiz-menu');
 const stage = document.getElementById('quiz-stage');
 
 function startQuiz(topic) {
-  const qs = topic === 'campur'
-    ? shuffle([...QUIZ.sifat, ...QUIZ.malaikat, ...QUIZ.kitab]).slice(0, 15)
-    : QUIZ[topic];
+  const qs = pickSet(topic);
   const state = { i: 0, ok: 0, wrong: [] };
   menu.hidden = true; stage.hidden = false;
   stage.innerHTML = '';
@@ -672,7 +792,11 @@ function startQuiz(topic) {
   show();
 }
 
-document.querySelectorAll('.topic').forEach(b => b.addEventListener('click', () => startQuiz(b.dataset.topic)));
+document.querySelectorAll('.topic').forEach(b => {
+  const sub = b.querySelector('.topic-sub');
+  sub.textContent = `${PER_SET} soalan rawak setiap set · ${bankOf(b.dataset.topic).length} soalan dalam bank · ${sub.dataset.pages}`;
+  b.addEventListener('click', () => startQuiz(b.dataset.topic));
+});
 
 function renderMcq(q, card, finish, feedback) {
   const box = el('div', 'opts');
