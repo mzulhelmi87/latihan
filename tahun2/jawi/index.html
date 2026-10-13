@@ -214,6 +214,7 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
   <nav class="tabs" role="tablist" aria-label="Menu">
     <button role="tab" id="tab-vb" aria-controls="p-vb" aria-selected="true"><span class="n">1</span>Vokal Berganding</button>
     <button role="tab" id="tab-vbh" aria-controls="p-vbh" aria-selected="false"><span class="n">2</span>Vokal Berganding dengan Hamzah</button>
+    <button role="tab" id="tab-ulang" aria-controls="p-ulang" aria-selected="false"><span class="n">3</span>Ulangkaji</button>
     <button role="tab" id="tab-kuiz" class="tab-kuiz" aria-controls="p-kuiz" aria-selected="false"><span class="n">?</span>Kuiz</button>
   </nav>
 
@@ -224,7 +225,8 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
       <div class="menu-grid">
         <button type="button" class="topic" data-topic="vb"><span class="topic-no">1</span><span class="topic-name">Vokal Berganding "ia", "iu", "ua"</span><span class="topic-sub" data-pages="m/s 37–45"></span></button>
         <button type="button" class="topic" data-topic="vbh"><span class="topic-no">2</span><span class="topic-name">Vokal Berganding dengan Hamzah "ai", "au", "ui"</span><span class="topic-sub" data-pages="m/s 46–55"></span></button>
-        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran kedua-dua topik</span><span class="topic-sub" data-pages="semua topik"></span></button>
+        <button type="button" class="topic" data-topic="ulang"><span class="topic-no">3</span><span class="topic-name">Ulangkaji: Diftong, Konsonan Bergabung, Hamzah, Suku Kata</span><span class="topic-sub" data-pages="ejaan standard DBP"></span></button>
+        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran semua topik</span><span class="topic-sub" data-pages="semua topik"></span></button>
       </div>
     </div>
     <div id="quiz-stage" hidden></div>
@@ -377,6 +379,77 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
     </div>
   </section>
 
+  <!-- ============ ULANGKAJI ============ -->
+  <section id="p-ulang" role="tabpanel" aria-labelledby="tab-ulang" hidden>
+    <div class="panel-head">
+      <h2>Ulangkaji: Diftong, Konsonan Bergabung, Kedudukan Hamzah &amp; Suku Kata</h2>
+      <span class="pages">Bukan daripada buku teks</span>
+    </div>
+    <p class="hint">Nota ini disediakan berdasarkan ejaan Jawi standard (Dewan Bahasa dan Pustaka). Jika contoh guru berbeza, ikut contoh guru.</p>
+
+    <div class="notes">
+      <div class="block">
+        <h3>1. Diftong</h3>
+        <p>Diftong ialah <b>dua huruf vokal yang disebut dalam SATU suku kata</b>. Ada tiga diftong: <b>ai, au, oi</b>. Diftong di akhir perkataan <b>tidak</b> menggunakan hamzah.</p>
+        <div class="grid3">
+          <div><b>"ai"</b><table class="words"><tbody>
+            <tr><td>pantai</td><td><span class="ar">ڤنتاي</span></td></tr><tr><td>sungai</td><td><span class="ar">سوڠاي</span></td></tr>
+            <tr><td>ramai</td><td><span class="ar">راماي</span></td></tr><tr><td>pandai</td><td><span class="ar">ڤنداي</span></td></tr>
+            <tr><td>kedai</td><td><span class="ar">کداي</span></td></tr><tr><td>tupai</td><td><span class="ar">توڤاي</span></td></tr></tbody></table></div>
+          <div><b>"au"</b><table class="words"><tbody>
+            <tr><td>pulau</td><td><span class="ar">ڤولاو</span></td></tr><tr><td>harimau</td><td><span class="ar">هاريماو</span></td></tr>
+            <tr><td>hijau</td><td><span class="ar">هيجاو</span></td></tr><tr><td>limau</td><td><span class="ar">ليماو</span></td></tr>
+            <tr><td>kerbau</td><td><span class="ar">کربو</span></td></tr><tr><td>pisau</td><td><span class="ar">ڤيسو</span></td></tr></tbody></table></div>
+          <div><b>"oi"</b><table class="words"><tbody>
+            <tr><td>amboi</td><td><span class="ar">امبوي</span></td></tr><tr><td>dodoi</td><td><span class="ar">دودوي</span></td></tr>
+            <tr><td>sepoi</td><td><span class="ar">سڤوي</span></td></tr></tbody></table></div>
+        </div>
+        <div class="key" style="margin-top:12px">Bezakan: <b>pantai</b> (pan + <strong>tai</strong>, diftong, 1 suku kata) ditulis <span class="ar">ڤنتاي</span> tanpa hamzah. <b>kain</b> (ka + <strong>in</strong>, vokal berganding, 2 suku kata) ditulis <span class="ar">کاءين</span> dengan hamzah.</div>
+        <p class="hint" style="margin-top:8px">Perhatian: <b>kerbau</b> <span class="ar">کربو</span> dan <b>pisau</b> <span class="ar">ڤيسو</span> dieja tanpa alif. Hafal ejaannya.</p>
+      </div>
+
+      <div class="block">
+        <h3>2. Konsonan bergabung</h3>
+        <p>Konsonan bergabung ialah <b>dua huruf konsonan yang bersebelahan</b> dalam satu suku kata, seperti <b>bl, br, dr, gr, kl, kr, pl, pr, sk, st, tr</b>. Dalam Jawi, <b>tiada huruf vokal</b> di antara dua konsonan itu.</p>
+        <div class="tbl-wrap"><table class="words"><tbody>
+          <tr><td>blok</td><td><span class="ar">بلوک</span></td><td>klinik</td><td><span class="ar">کلينيک</span></td></tr>
+          <tr><td>brek</td><td><span class="ar">بريک</span></td><td>krim</td><td><span class="ar">کريم</span></td></tr>
+          <tr><td>drama</td><td><span class="ar">دراما</span></td><td>plastik</td><td><span class="ar">ڤلستيک</span></td></tr>
+          <tr><td>graf</td><td><span class="ar">ݢراف</span></td><td>projek</td><td><span class="ar">ڤروجيک</span></td></tr>
+          <tr><td>trak</td><td><span class="ar">تراک</span></td><td>skru</td><td><span class="ar">سکرو</span></td></tr>
+          <tr><td>traktor</td><td><span class="ar">تراکتور</span></td><td>stesen</td><td><span class="ar">ستيسين</span></td></tr>
+        </tbody></table></div>
+      </div>
+
+      <div class="block">
+        <h3>3. Kedudukan hamzah</h3>
+        <ul>
+          <li><b>Hamzah tiga suku <span class="ar">ء</span> di tengah perkataan</b>, sebagai hamzah pembeza antara dua vokal: kain <span class="ar">کاءين</span>, laut <span class="ar">لاءوت</span>, buih <span class="ar">بوءيه</span>, air <span class="ar">اءير</span>, daerah <span class="ar">داءيره</span>.</li>
+          <li><b>Hamzah di atas alif <span class="ar">أ</span></b> selepas awalan <b>se-</b> atau <b>ke-</b> apabila perkataan dasar bermula dengan vokal: seorang <span class="ar">سأورڠ</span>, seekor <span class="ar">سأيکور</span>, keadaan <span class="ar">کأداءن</span>.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>4. Suku kata</h3>
+        <ul>
+          <li><b>Suku kata terbuka</b> berakhir dengan huruf vokal: ba, ku, ti, ma.</li>
+          <li><b>Suku kata tertutup</b> berakhir dengan huruf konsonan: kan, pal, tor.</li>
+        </ul>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Perkataan</th><th>Suku kata</th><th>Jawi</th></tr></thead>
+          <tbody>
+            <tr><td>buku</td><td>bu + ku</td><td><span class="ar">بو + کو = بوکو</span></td></tr>
+            <tr><td>kuda</td><td>ku + da</td><td><span class="ar">کو + دا = کودا</span></td></tr>
+            <tr><td>roti</td><td>ro + ti</td><td><span class="ar">رو + تي = روتي</span></td></tr>
+            <tr><td>makan</td><td>ma + kan</td><td><span class="ar">ما + کن = ماکن</span></td></tr>
+            <tr><td>ikan</td><td>i + kan</td><td><span class="ar">اي + کن = ايکن</span></td></tr>
+            <tr><td>kapal</td><td>ka + pal</td><td><span class="ar">کا + ڤل = کاڤل</span></td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </div>
+  </section>
+
   <footer>Disediakan berpandukan Buku Teks Jawi Tahun 2, Sekolah Rendah Agama Negeri Selangor (JAIS).</footer>
 </div>
 
@@ -492,11 +565,81 @@ const QUIZ = {
     { t: 'match', q: 'Padankan ejaan tanpa hamzah (salah) dengan ejaan yang betul.', L: 'Salah', R: 'Betul', pairs: [
       [AR('دايق'), AR('داءيق')], [AR('باوڠ'), AR('باءوڠ')], [AR('چويت'), AR('چوءيت')], [AR('ساوه'), AR('ساءوه')] ] },
   ],
+  ulang: [
+    // Diftong
+    { t: 'mcq', q: 'Diftong ialah dua huruf vokal yang disebut dalam...', o: ['Satu suku kata', 'Dua suku kata', 'Tiga suku kata', 'Satu huruf'], a: 0 },
+    { t: 'mcq', q: 'Manakah contoh diftong?', o: ['ai, au, oi', 'ia, iu, ua', 'bl, tr, kl', 'ba, ku, ti'], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>pantai</b>.', o: [AR('ڤنتاي'), AR('ڤنتاءي'), AR('ڤنتي'), AR('ڤنتاو')], a: 0, why: 'Diftong "ai" di akhir perkataan tidak menggunakan hamzah.' },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>sungai</b>.', o: [AR('سوڠاي'), AR('سوڠاءي'), AR('سوڠي'), AR('سوڠاو')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>pulau</b>.', o: [AR('ڤولاو'), AR('ڤولاءو'), AR('ڤولي'), AR('ڤولاي')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>harimau</b>.', o: [AR('هاريماو'), AR('هاريماءو'), AR('هاريمي'), AR('هاريماي')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>amboi</b>.', o: [AR('امبوي'), AR('امبوءي'), AR('امبي'), AR('امباي')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>kedai</b>.', o: [AR('کداي'), AR('کداءي'), AR('کدي'), AR('کيداي')], a: 0 },
+    { t: 'tf', q: `Diftong "ai" dalam perkataan <b>pantai</b> ditulis dengan hamzah.`, a: false, why: `Ejaan betul: ${AR('ڤنتاي')}, tanpa hamzah.` },
+    { t: 'tf', q: `Perkataan <b>kerbau</b> dieja ${AR('کربو')}.`, a: true },
+    { t: 'tf', q: `Perkataan <b>pisau</b> dieja ${AR('ڤيسو')}.`, a: true },
+    { t: 'tf', q: `Perkataan <b>hijau</b> dieja ${AR('هيجاو')}.`, a: true },
+    { t: 'tf', q: 'Perkataan <b>kain</b> mengandungi diftong.', a: false, why: 'kain (ka + in) ialah vokal berganding dengan hamzah, disebut dalam dua suku kata.' },
+    { t: 'mcq', q: 'Perkataan manakah mengandungi diftong?', o: ['pantai', 'kain', 'biar', 'tuan'], a: 0 },
+    { t: 'mcq', q: 'Perkataan manakah mengandungi diftong "au"?', o: ['pulau', 'laut', 'tiup', 'buah'], a: 0, why: 'laut (la + ut) ialah vokal berganding dengan hamzah.' },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>pantai</b> ialah...', o: ['pan + tai', 'pan + ta + i', 'pa + ntai', 'pant + ai'], a: 0 },
+    { t: 'mcq', q: `Perkataan ${AR('ڤنداي')} dibaca...`, o: ['pandai', 'pantai', 'pindah', 'padi'], a: 0 },
+    { t: 'mcq', q: `Perkataan ${AR('ليماو')} dibaca...`, o: ['limau', 'lima', 'lembu', 'lalu'], a: 0 },
+    { t: 'match', q: 'Padankan diftong dengan contoh perkataannya.', L: 'Diftong', R: 'Contoh', pairs: [['ai', 'pantai'], ['au', 'pulau'], ['oi', 'amboi']] },
+    { t: 'match', q: 'Padankan perkataan dengan ejaan Jawinya.', L: 'Rumi', R: 'Jawi', pairs: [['tupai', AR('توڤاي')], ['harimau', AR('هاريماو')], ['dodoi', AR('دودوي')], ['ramai', AR('راماي')]] },
+    { t: 'order', ar: true, q: 'Susun huruf untuk mengeja <b>pantai</b>. Mula dengan huruf pertama.', items: ['ڤ', 'ن', 'ت', 'ا', 'ي'] },
+    { t: 'order', ar: true, q: 'Susun huruf untuk mengeja <b>kedai</b>. Mula dengan huruf pertama.', items: ['ک', 'د', 'ا', 'ي'] },
+    // Konsonan bergabung
+    { t: 'mcq', q: 'Konsonan bergabung ialah...', o: ['Dua huruf konsonan bersebelahan dalam satu suku kata', 'Dua huruf vokal dalam satu suku kata', 'Huruf hamzah di tengah perkataan', 'Suku kata yang berakhir dengan vokal'], a: 0 },
+    { t: 'tf', q: 'Dalam ejaan Jawi, tiada huruf vokal di antara dua konsonan bergabung.', a: true },
+    { t: 'tf', q: `Perkataan <b>blok</b> dieja ${AR('بيلوک')}.`, a: false, why: `Ejaan betul: ${AR('بلوک')}. Tiada ي di antara ب dan ل.` },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>traktor</b>.', o: [AR('تراکتور'), AR('تيراکتور'), AR('ترکتور'), AR('توراکتور')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>klinik</b>.', o: [AR('کلينيک'), AR('کيلينيک'), AR('کلنيک'), AR('کولينيک')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>drama</b>.', o: [AR('دراما'), AR('ديراما'), AR('درما'), AR('دوراما')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>stesen</b>.', o: [AR('ستيسين'), AR('سيتيسين'), AR('ستسين'), AR('سوتيسين')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>krim</b>.', o: [AR('کريم'), AR('کيريم'), AR('کرم'), AR('کوريم')], a: 0 },
+    { t: 'mcq', q: 'Perkataan manakah mengandungi konsonan bergabung?', o: ['brek', 'buku', 'pantai', 'kain'], a: 0 },
+    { t: 'mcq', q: 'Perkataan manakah mengandungi konsonan bergabung?', o: ['plastik', 'pisang', 'pulau', 'padi'], a: 0 },
+    { t: 'mcq', q: 'Apakah konsonan bergabung dalam perkataan <b>traktor</b>?', o: ['tr', 'kt', 'or', 'ak'], a: 0 },
+    { t: 'mcq', q: 'Apakah konsonan bergabung dalam perkataan <b>skru</b>?', o: ['sk', 'kr', 'ru', 'su'], a: 0 },
+    { t: 'mcq', q: `Perkataan ${AR('ڤروجيک')} dibaca...`, o: ['projek', 'perjak', 'pujuk', 'program'], a: 0 },
+    { t: 'match', q: 'Padankan perkataan dengan ejaan Jawinya.', L: 'Rumi', R: 'Jawi', pairs: [['drama', AR('دراما')], ['krim', AR('کريم')], ['trak', AR('تراک')], ['graf', AR('ݢراف')]] },
+    { t: 'order', ar: true, q: 'Susun huruf untuk mengeja <b>krim</b>. Mula dengan huruf pertama.', items: ['ک', 'ر', 'ي', 'م'] },
+    { t: 'order', ar: true, q: 'Susun huruf untuk mengeja <b>trak</b>. Mula dengan huruf pertama.', items: ['ت', 'ر', 'ا', 'ک'] },
+    // Kedudukan hamzah
+    { t: 'mcq', q: 'Apakah nama simbol ini?' + ` ${AR('ء')}`, o: ['Hamzah', 'Alif', 'Wau', 'Ya'], a: 0 },
+    { t: 'tf', q: `Hamzah dalam perkataan ${AR('کاءين')} (kain) terletak di tengah perkataan.`, a: true },
+    { t: 'mcq', q: `Di manakah kedudukan hamzah dalam perkataan ${AR('لاءوت')} (laut)?`, o: ['Di tengah perkataan', 'Di awal perkataan', 'Di akhir perkataan', 'Tiada hamzah'], a: 0 },
+    { t: 'mcq', q: 'Dalam perkataan <b>seorang</b>, hamzah ditulis di...', o: [`Atas alif ${AR('أ')}`, 'Akhir perkataan', 'Atas wau', 'Tiada hamzah'], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>seorang</b>.', o: [AR('سأورڠ'), AR('سءورڠ'), AR('ساورڠ'), AR('سورڠ')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>seekor</b>.', o: [AR('سأيکور'), AR('سيکور'), AR('سءيکور'), AR('ساءيکور')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>keadaan</b>.', o: [AR('کأداءن'), AR('کاداءن'), AR('کأدان'), AR('کداءن')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>air</b>.', o: [AR('اءير'), AR('اير'), AR('أير'), AR('ايير')], a: 0 },
+    { t: 'mcq', q: 'Pilih ejaan Jawi yang betul bagi perkataan <b>daerah</b>.', o: [AR('داءيره'), AR('دايره'), AR('دأيره'), AR('داره')], a: 0 },
+    { t: 'tf', q: `Hamzah di atas alif ${AR('أ')} digunakan selepas awalan se- atau ke- apabila perkataan dasar bermula dengan vokal.`, a: true },
+    { t: 'match', q: 'Padankan perkataan dengan jenis hamzahnya.', L: 'Perkataan', R: 'Hamzah', pairs: [[`kain ${AR('کاءين')}`, `Tengah perkataan ${AR('ء')}`], [`seorang ${AR('سأورڠ')}`, `Atas alif ${AR('أ')}`]] },
+    // Suku kata
+    { t: 'mcq', q: 'Berapakah suku kata dalam perkataan <b>kerusi</b>?', o: ['3', '2', '4', '1'], a: 0, why: 'ke + ru + si' },
+    { t: 'mcq', q: 'Berapakah suku kata dalam perkataan <b>sekolah</b>?', o: ['3', '2', '4', '5'], a: 0, why: 'se + ko + lah' },
+    { t: 'mcq', q: 'Berapakah suku kata dalam perkataan <b>buku</b>?', o: ['2', '1', '3', '4'], a: 0, why: 'bu + ku' },
+    { t: 'mcq', q: 'Berapakah suku kata dalam perkataan <b>beruang</b>?', o: ['3', '2', '4', '1'], a: 0, why: 'be + ru + ang' },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>makan</b> ialah...', o: ['ma + kan', 'mak + an', 'm + akan', 'ma + ka + n'], a: 0 },
+    { t: 'mcq', q: `Pecahan suku kata Jawi bagi ${AR('بوکو')} (buku) ialah...`, o: [AR('بو + کو'), AR('ب + وکو'), AR('بوک + و'), AR('بو + ک + و')], a: 0 },
+    { t: 'mcq', q: `Pecahan suku kata Jawi bagi ${AR('ماکن')} (makan) ialah...`, o: [AR('ما + کن'), AR('م + اکن'), AR('ماک + ن'), AR('ما + ک + ن')], a: 0 },
+    { t: 'mcq', q: `Pecahan suku kata Jawi bagi ${AR('ايکن')} (ikan) ialah...`, o: [AR('اي + کن'), AR('ا + يکن'), AR('ايک + ن'), AR('اي + ک + ن')], a: 0 },
+    { t: 'order', ar: true, q: 'Susun suku kata untuk membentuk perkataan <b>kuda</b>.', items: ['کو', 'دا'] },
+    { t: 'order', ar: true, q: 'Susun suku kata untuk membentuk perkataan <b>kapal</b>.', items: ['کا', 'ڤل'] },
+    { t: 'order', ar: true, q: 'Susun suku kata untuk membentuk perkataan <b>roti</b>.', items: ['رو', 'تي'] },
+    { t: 'tf', q: 'Suku kata terbuka berakhir dengan huruf vokal, contohnya "ba" dan "ku".', a: true },
+    { t: 'tf', q: '"kan" ialah suku kata terbuka.', a: false, why: '"kan" berakhir dengan konsonan n, jadi ia suku kata tertutup.' },
+    { t: 'mcq', q: 'Manakah suku kata tertutup?', o: ['kan', 'ba', 'ku', 'ti'], a: 0 },
+    { t: 'mcq', q: 'Manakah suku kata terbuka?', o: ['ma', 'pal', 'tor', 'kan'], a: 0 },
+  ],
 };
 
-const TOPIC_NAME = { vb: 'Vokal Berganding "ia", "iu", "ua"', vbh: 'Vokal Berganding dengan Hamzah', campur: 'Campuran kedua-dua topik' };
+const TOPIC_NAME = { vb: 'Vokal Berganding "ia", "iu", "ua"', vbh: 'Vokal Berganding dengan Hamzah', ulang: 'Ulangkaji', campur: 'Campuran semua topik' };
 const STORE = 'jawi2';
-const HASH_TABS = { vb: 'tab-vb', vbh: 'tab-vbh', kuiz: 'tab-kuiz' };
+const HASH_TABS = { vb: 'tab-vb', vbh: 'tab-vbh', ulang: 'tab-ulang', kuiz: 'tab-kuiz' };
 const FIRST_TAB = 'tab-vb';
 
 const TYPE_LABEL = { mcq: 'Pilih jawapan', tf: 'Betul / Salah', match: 'Padankan', order: 'Susun' };
