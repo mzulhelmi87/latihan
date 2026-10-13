@@ -164,6 +164,30 @@ td.num { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--indi
 .stars { font-size: 30px; letter-spacing: 4px; color: var(--gold); }
 .stars .off { color: var(--line); }
 
+nav.tabs button.tab-kuiz { border-color: var(--gold); }
+nav.tabs button.tab-kuiz .n { background: var(--gold-soft); color: var(--gold); }
+nav.tabs button.tab-kuiz[aria-selected="true"] { background: var(--gold); border-color: var(--gold); color: var(--surface); }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+.topic { font-family: var(--f-body); color: var(--ink); text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 16px; cursor: pointer; display: grid; gap: 4px; justify-items: start; }
+.topic:hover { border-color: var(--indigo); }
+.topic.mix { border-color: var(--gold); background: var(--gold-soft); }
+.topic-no { font-family: var(--f-display); font-size: 18px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); }
+.topic.mix .topic-no { background: var(--gold); color: var(--surface); }
+.topic-name { font-family: var(--f-display); font-size: 20px; line-height: 1.2; }
+.topic-sub { font-size: 14px; color: var(--ink-soft); font-weight: 700; }
+#quiz-stage { margin-top: 12px; }
+.stage-body { background: var(--surface-2); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; padding: 16px; display: grid; gap: 14px; }
+.counter { font-weight: 800; font-size: 15px; opacity: .9; }
+.nav-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.nav-row .btn { min-height: 46px; padding-inline: 22px; font-size: 16px; }
+.review { text-align: left; width: 100%; display: grid; gap: 8px; margin-top: 6px; }
+.review h4 { margin: 0; font-family: var(--f-display); font-size: 18px; color: var(--bad); }
+.review .item { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; font-size: 15px; }
+.review .item b { color: var(--ok); }
+.summary .actions { justify-content: center; }
+.video { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.song a { color: var(--indigo); font-weight: 800; }
 footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 @media (max-width: 520px) { .match { gap: 6px 8px; } .chip { font-size: 14px; padding: 7px 9px; } .q { padding: 12px; } .qlist { padding: 10px; } }
@@ -175,14 +199,29 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
   <header class="top">
     <span class="eyebrow">Pendidikan Islam JAIS · Tauhid Tahun 2</span>
     <h1>Nota Ringkas &amp; Kuiz Tauhid</h1>
-    <p class="lead">Baca nota dahulu, kemudian jawab kuiz di bawah setiap tajuk. Jawapan disemak terus: hijau betul, merah salah.</p>
+    <p class="lead">Baca nota setiap tajuk dahulu, kemudian buka menu Kuiz. Soalan keluar satu demi satu dan jawapan disemak terus: hijau betul, merah salah.</p>
   </header>
 
-  <nav class="tabs" role="tablist" aria-label="Tajuk">
+  <nav class="tabs" role="tablist" aria-label="Menu">
     <button role="tab" id="tab-sifat" aria-controls="p-sifat" aria-selected="true"><span class="n">1</span>Sifat Wajib &amp; Mustahil</button>
     <button role="tab" id="tab-malaikat" aria-controls="p-malaikat" aria-selected="false"><span class="n">2</span>Beriman kepada Malaikat</button>
     <button role="tab" id="tab-kitab" aria-controls="p-kitab" aria-selected="false"><span class="n">3</span>Beriman kepada Kitab</button>
+    <button role="tab" id="tab-kuiz" class="tab-kuiz" aria-controls="p-kuiz" aria-selected="false"><span class="n">?</span>Kuiz</button>
   </nav>
+
+  <!-- ============ KUIZ ============ -->
+  <section id="p-kuiz" role="tabpanel" aria-labelledby="tab-kuiz" hidden>
+    <div id="quiz-menu">
+      <div class="panel-head"><h2>Kuiz Tauhid</h2><span class="pages">Pilih satu topik</span></div>
+      <div class="menu-grid">
+        <button type="button" class="topic" data-topic="sifat"><span class="topic-no">1</span><span class="topic-name">Sifat Wajib &amp; Mustahil</span><span class="topic-sub">18 soalan · m/s 1–22</span></button>
+        <button type="button" class="topic" data-topic="malaikat"><span class="topic-no">2</span><span class="topic-name">Beriman kepada Malaikat</span><span class="topic-sub">18 soalan · m/s 23–32</span></button>
+        <button type="button" class="topic" data-topic="kitab"><span class="topic-no">3</span><span class="topic-name">Beriman kepada Kitab</span><span class="topic-sub">18 soalan · m/s 33–39</span></button>
+        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran semua topik</span><span class="topic-sub">15 soalan rawak</span></button>
+      </div>
+    </div>
+    <div id="quiz-stage" hidden></div>
+  </section>
 
   <!-- ============ SIFAT ============ -->
   <section id="p-sifat" role="tabpanel" aria-labelledby="tab-sifat">
@@ -260,7 +299,6 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
       </div>
     </div>
 
-    <div class="quiz" data-quiz="sifat"></div>
   </section>
 
   <!-- ============ MALAIKAT ============ -->
@@ -321,6 +359,13 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
         </div>
       </div>
 
+      <div class="block song">
+        <h3>Lagu hafal 10 malaikat</h3>
+        <p class="hint">Dengar dan nyanyi bersama untuk mudah hafal nama malaikat: <b>10 Malaikat</b> nyanyian Raihan.</p>
+        <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/LABPt7ifpMM" title="10 Malaikat - Raihan (Lirik)" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <p class="hint" style="margin:8px 0 0">Video tidak keluar? <a href="https://youtu.be/LABPt7ifpMM" target="_blank" rel="noopener">Buka di YouTube</a>.</p>
+      </div>
+
       <div class="grid2">
         <div class="block">
           <h3>Sifat malaikat</h3>
@@ -350,7 +395,6 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
       </div>
     </div>
 
-    <div class="quiz" data-quiz="malaikat"></div>
   </section>
 
   <!-- ============ KITAB ============ -->
@@ -432,7 +476,6 @@ footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
       </div>
     </div>
 
-    <div class="quiz" data-quiz="kitab"></div>
   </section>
 
   <footer>Disediakan berpandukan Buku Teks Tauhid Tahun 2, Sekolah Rendah Agama Negeri Selangor (JAIS).</footer>
@@ -531,36 +574,78 @@ function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { co
 function shuffleDiff(a) { if (a.length < 2) return a.slice(); let s; do { s = shuffle(a); } while (s.every((x, i) => x === a[i])); return s; }
 function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
 
-function buildQuiz(root) {
-  const key = root.dataset.quiz;
-  const qs = QUIZ[key];
-  const state = { done: 0, ok: 0 };
-  root.innerHTML = '';
+const TOPIC_NAME = { sifat: 'Sifat Wajib & Mustahil', malaikat: 'Beriman kepada Malaikat', kitab: 'Beriman kepada Kitab', campur: 'Campuran semua topik' };
+const RENDER = () => ({ mcq: renderMcq, tf: renderTf, match: renderMatch, order: renderOrder });
+
+function answerText(q) {
+  if (q.t === 'mcq') return q.o[q.a];
+  if (q.t === 'tf') return q.a ? 'Betul' : 'Salah';
+  if (q.t === 'match') return q.pairs.map(p => `${p[0]} – ${p[1]}`).join('; ');
+  return q.ar ? `<span class="ar">${q.items.join(' ، ')}</span>` : q.items.join(' → ');
+}
+
+const menu = document.getElementById('quiz-menu');
+const stage = document.getElementById('quiz-stage');
+
+function startQuiz(topic) {
+  const qs = topic === 'campur'
+    ? shuffle([...QUIZ.sifat, ...QUIZ.malaikat, ...QUIZ.kitab]).slice(0, 15)
+    : QUIZ[topic];
+  const state = { i: 0, ok: 0, wrong: [] };
+  menu.hidden = true; stage.hidden = false;
+  stage.innerHTML = '';
 
   const head = el('div', 'quiz-head');
-  head.append(el('h3', null, 'Kuiz'));
+  const title = el('h3', null, TOPIC_NAME[topic]);
+  const counter = el('span', 'counter');
   const score = el('span', 'score');
-  head.append(score);
+  head.append(title, counter, score);
   const prog = el('div', 'progress'); const bar = el('i'); prog.append(bar);
-  const list = el('div', 'qlist');
-  root.append(head, prog, list);
+  const body = el('div', 'stage-body');
+  stage.append(head, prog, body);
 
-  function update() {
-    score.textContent = `${state.ok} / ${qs.length} betul`;
-    bar.style.width = (state.done / qs.length * 100) + '%';
-    if (state.done === qs.length) showSummary();
+  function exitToMenu() { stage.hidden = true; menu.hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  function show() {
+    const q = qs[state.i];
+    counter.textContent = `Soalan ${state.i + 1} / ${qs.length}`;
+    score.textContent = `${state.ok} betul`;
+    bar.style.width = (state.i / qs.length * 100) + '%';
+    body.innerHTML = '';
+
+    const card = el('div', 'q');
+    const meta = el('div', 'q-meta');
+    meta.append(el('span', 'q-no', `Soalan ${state.i + 1}`), el('span', 'q-type', TYPE_LABEL[q.t]));
+    card.append(meta, el('p', 'q-text', q.q));
+
+    const nav = el('div', 'nav-row');
+    const quit = el('button', 'btn ghost', 'Keluar'); quit.type = 'button';
+    const last = state.i === qs.length - 1;
+    const next = el('button', 'btn', last ? 'Lihat keputusan' : 'Seterusnya →'); next.type = 'button'; next.disabled = true;
+    nav.append(quit, next);
+    quit.addEventListener('click', exitToMenu);
+    next.addEventListener('click', () => { if (last) summary(); else { state.i++; show(); } window.scrollTo({ top: stage.offsetTop - 70, behavior: 'smooth' }); });
+
+    const finish = (c, correct) => {
+      if (correct) state.ok++; else state.wrong.push({ n: state.i + 1, q });
+      c.classList.add(correct ? 'done-ok' : 'done-bad');
+      score.textContent = `${state.ok} betul`;
+      bar.style.width = ((state.i + 1) / qs.length * 100) + '%';
+      next.disabled = false; next.focus({ preventScroll: true });
+    };
+    const feedback = (c, correct, extra) => {
+      const fb = el('div', 'fb ' + (correct ? 'ok' : 'bad'), correct ? '✓ Betul! Syabas.' : '✗ Salah.');
+      if (extra) fb.append(el('span', 'why', extra));
+      c.append(fb);
+    };
+    RENDER()[q.t](q, card, finish, feedback);
+    body.append(card, nav);
   }
-  function finish(card, correct) {
-    state.done++; if (correct) state.ok++;
-    card.classList.add(correct ? 'done-ok' : 'done-bad');
-    update();
-  }
-  function feedback(card, correct, extra) {
-    const fb = el('div', 'fb ' + (correct ? 'ok' : 'bad'), correct ? '✓ Betul! Syabas.' : '✗ Salah.');
-    if (extra) fb.append(el('span', 'why', extra));
-    card.append(fb);
-  }
-  function showSummary() {
+
+  function summary() {
+    counter.textContent = 'Selesai';
+    bar.style.width = '100%';
+    body.innerHTML = '';
     const pct = state.ok / qs.length;
     const n = pct >= .9 ? 3 : pct >= .6 ? 2 : pct >= .3 ? 1 : 0;
     const msg = n === 3 ? 'Cemerlang! Ilmu kamu sangat mantap.' : n === 2 ? 'Bagus! Ulang baca nota untuk soalan yang salah.' : 'Jangan putus asa. Baca nota sekali lagi dan cuba semula.';
@@ -568,22 +653,26 @@ function buildQuiz(root) {
     s.append(el('div', 'stars', '★'.repeat(n) + `<span class="off">${'★'.repeat(3 - n)}</span>`));
     s.append(el('div', 'big', `${state.ok} / ${qs.length}`));
     s.append(el('div', null, msg));
-    const again = el('button', 'btn', 'Cuba lagi');
-    again.addEventListener('click', () => { buildQuiz(root); root.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-    s.append(again);
-    list.append(s);
+    if (state.wrong.length) {
+      const r = el('div', 'review');
+      r.append(el('h4', null, 'Soalan yang salah'));
+      state.wrong.forEach(w => r.append(el('div', 'item', `<div>${w.n}. ${w.q.q}</div><div>Jawapan: <b>${answerText(w.q)}</b></div>`)));
+      s.append(r);
+    }
+    const acts = el('div', 'actions');
+    const again = el('button', 'btn', 'Cuba lagi'); again.type = 'button';
+    const other = el('button', 'btn ghost', 'Pilih topik lain'); other.type = 'button';
+    again.addEventListener('click', () => startQuiz(topic));
+    other.addEventListener('click', exitToMenu);
+    acts.append(again, other);
+    s.append(acts);
+    body.append(s);
   }
 
-  qs.forEach((q, i) => {
-    const card = el('div', 'q');
-    const meta = el('div', 'q-meta');
-    meta.append(el('span', 'q-no', `Soalan ${i + 1}`), el('span', 'q-type', TYPE_LABEL[q.t]));
-    card.append(meta, el('p', 'q-text', q.q));
-    ({ mcq: renderMcq, tf: renderTf, match: renderMatch, order: renderOrder })[q.t](q, card, finish, feedback);
-    list.append(card);
-  });
-  update();
+  show();
 }
+
+document.querySelectorAll('.topic').forEach(b => b.addEventListener('click', () => startQuiz(b.dataset.topic)));
 
 function renderMcq(q, card, finish, feedback) {
   const box = el('div', 'opts');
@@ -698,12 +787,10 @@ function selectTab(btn) {
   try { localStorage.setItem('tauhid2-tab', btn.id); } catch (e) {}
 }
 tabs.forEach(t => t.addEventListener('click', () => { selectTab(t); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
-const hashTab = { sifat: 'tab-sifat', malaikat: 'tab-malaikat', kitab: 'tab-kitab' }[location.hash.slice(1)];
+const hashTab = { sifat: 'tab-sifat', malaikat: 'tab-malaikat', kitab: 'tab-kitab', kuiz: 'tab-kuiz' }[location.hash.slice(1)];
 let saved = null; try { saved = localStorage.getItem('tauhid2-tab'); } catch (e) {}
 const startTab = document.getElementById(hashTab || saved || 'tab-sifat');
 if (startTab) selectTab(startTab);
-
-document.querySelectorAll('.quiz').forEach(buildQuiz);
 </script>
 </body>
 </html>
