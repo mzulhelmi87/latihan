@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jawi Tahun 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&family=Scheherazade+New:wght@400;700&display=swap">
+<style>
+/* Layout: one column "buku nota" — tabs per tajuk, nota dahulu, kuiz di bawah. Tema langit malam dari buku teks. */
+:root {
+  --bg: #eef6ea;
+  --surface: #ffffff;
+  --surface-2: #f5faf2;
+  --ink: #1d3320;
+  --ink-soft: #55705a;
+  --line: #d4e6cd;
+  --indigo: #2f7a32;
+  --indigo-soft: #e1f2dc;
+  --gold: #b97c00;
+  --gold-soft: #fff3d1;
+  --ok: #1d8a57;
+  --ok-soft: #dcf5e8;
+  --bad: #c43d3d;
+  --bad-soft: #fde3e1;
+  --f-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --f-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-ar: "Scheherazade New", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111f13; --surface: #1a2c1d; --surface-2: #203624; --ink: #eaf6e8; --ink-soft: #a8c4aa;
+    --line: #2f4d33; --indigo: #8fd88a; --indigo-soft: #24402a; --gold: #ffc94a; --gold-soft: #3a3115;
+    --ok: #58d79a; --ok-soft: #173a2b; --bad: #ff8b84; --bad-soft: #452224; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111f13; --surface: #1a2c1d; --surface-2: #203624; --ink: #eaf6e8; --ink-soft: #a8c4aa;
+  --line: #2f4d33; --indigo: #8fd88a; --indigo-soft: #24402a; --gold: #ffc94a; --gold-soft: #3a3115;
+  --ok: #58d79a; --ok-soft: #173a2b; --bad: #ff8b84; --bad-soft: #452224; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; }
+
+header.top { display: grid; gap: 4px; padding-block: 8px 20px; }
+.eyebrow { font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--f-display); font-size: clamp(32px, 7vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lead { color: var(--ink-soft); margin: 0; max-width: 60ch; }
+
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; gap: 8px; overflow-x: auto; padding-block: 10px; margin-bottom: 8px; }
+nav.tabs button { flex: 0 0 auto; font: 700 15px var(--f-body); color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+nav.tabs button .n { font-family: var(--f-display); background: var(--indigo-soft); color: var(--indigo); border-radius: 999px; width: 24px; height: 24px; display: grid; place-items: center; font-size: 14px; }
+nav.tabs button[aria-selected="true"] { background: var(--indigo); border-color: var(--indigo); color: var(--surface); }
+nav.tabs button[aria-selected="true"] .n { background: var(--surface); color: var(--indigo); }
+button:focus-visible, .opt:focus-visible, .chip:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin: 18px 0 6px; }
+h2 { font-family: var(--f-display); font-size: clamp(26px, 5vw, 34px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.jawi-title { font-family: var(--f-ar); font-size: 28px; color: var(--indigo); direction: rtl; }
+.pages { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+
+h3 { font-family: var(--f-display); font-size: 21px; margin: 0 0 6px; color: var(--indigo); }
+.notes { display: grid; gap: 14px; margin-top: 14px; }
+.block { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+.block p { margin: 0 0 8px; }
+.block p:last-child { margin-bottom: 0; }
+.block ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.key { background: var(--gold-soft); border: 1px dashed var(--gold); border-radius: 14px; padding: 12px 16px; font-weight: 700; }
+.key strong { color: var(--gold); }
+
+.ar { font-family: var(--f-ar); direction: rtl; unicode-bidi: isolate; font-size: 1.35em; line-height: 1.9; }
+.ayat { font-family: var(--f-ar); direction: rtl; text-align: right; font-size: 26px; line-height: 2; background: var(--surface-2); border-radius: 10px; padding: 8px 14px; margin: 6px 0 8px; }
+.maksud { font-size: 15px; color: var(--ink-soft); font-style: italic; }
+.ref { font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: .03em; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+td .ar { font-size: 1.4em; }
+td.num { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--indigo); }
+
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.vgroup h3 .ar { font-size: 1.3em; margin-left: 6px; }
+table.words td { padding: 4px 8px; }
+table.words td:first-child { font-weight: 700; }
+table.words td .ar { font-size: 1.6em; line-height: 1.5; }
+.cmp td.no .ar { color: var(--bad); text-decoration: line-through; text-decoration-thickness: 2px; }
+.cmp td.yes .ar { color: var(--ok); font-weight: 700; }
+.q-text b { color: var(--indigo); font-size: 1.1em; }
+.slots .chip .ar, .pool .chip .ar { font-size: 1.8em; }
+/* Sifat cards */
+.sifat-list { display: grid; gap: 14px; }
+.sifat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.sifat-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.sifat-pair > div { padding: 12px 16px; min-width: 0; }
+.sifat-pair .w { background: var(--ok-soft); }
+.sifat-pair .m { background: var(--bad-soft); }
+.tag { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.w .tag { color: var(--ok); } .m .tag { color: var(--bad); }
+.sifat-pair .nm { font-family: var(--f-display); font-size: 20px; line-height: 1.2; }
+.sifat-pair .ar { display: block; font-size: 26px; line-height: 1.6; }
+.sifat-body { padding: 12px 16px 16px; display: grid; gap: 8px; }
+.sifat-body .lbl { font-weight: 800; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 480px) { .sifat-pair .nm { font-size: 17px; } .sifat-pair .ar { font-size: 22px; } }
+
+/* Quiz */
+.quiz { margin-top: 28px; }
+.quiz-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; background: var(--indigo); color: var(--surface); border-radius: 16px 16px 0 0; padding: 14px 18px; }
+.quiz-head h3 { color: inherit; margin: 0; font-size: 24px; }
+.score { font-family: var(--f-display); font-size: 18px; font-variant-numeric: tabular-nums; background: var(--surface); color: var(--indigo); border-radius: 999px; padding: 2px 14px; }
+.progress { height: 8px; background: var(--indigo-soft); }
+.progress > i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .3s; }
+.qlist { display: grid; gap: 14px; background: var(--surface-2); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; padding: 16px; }
+.q { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.q.done-ok { border-color: var(--ok); }
+.q.done-bad { border-color: var(--bad); }
+.q-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.q-no { font-family: var(--f-display); font-size: 16px; color: var(--indigo); }
+.q-type { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 2px 10px; }
+.q-text { font-weight: 700; font-size: 18px; margin: 0 0 10px; }
+.q-text .ar { font-size: 1.45em; }
+.opts { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.opt { font: 700 16px var(--f-body); color: var(--ink); text-align: left; background: var(--surface-2); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; cursor: pointer; display: flex; gap: 10px; align-items: center; min-height: 48px; }
+.opt .letter { flex: 0 0 auto; font-family: var(--f-display); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); font-size: 14px; }
+.opt:hover:not(:disabled) { border-color: var(--indigo); }
+.opt:disabled { cursor: default; }
+.opt.ok { background: var(--ok-soft); border-color: var(--ok); }
+.opt.bad { background: var(--bad-soft); border-color: var(--bad); }
+.opt.ok .letter { background: var(--ok); color: var(--surface); }
+.opt.bad .letter { background: var(--bad); color: var(--surface); }
+.opt.dim { opacity: .55; }
+.tf { grid-template-columns: 1fr 1fr; }
+.tf .opt { justify-content: center; font-size: 18px; }
+
+.fb { margin-top: 10px; border-radius: 10px; padding: 10px 14px; font-weight: 700; }
+.fb.ok { background: var(--ok-soft); color: var(--ok); }
+.fb.bad { background: var(--bad-soft); color: var(--bad); }
+.fb .why { display: block; color: var(--ink); font-weight: 600; margin-top: 2px; }
+
+/* Match */
+.match { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.match .col { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.match .col-h { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.chip { font: 700 15px var(--f-body); color: var(--ink); background: var(--surface-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; cursor: pointer; text-align: left; min-height: 46px; width: 100%; }
+.chip .ar { font-size: 1.3em; line-height: 1.4; }
+.chip.sel { border-color: var(--indigo); background: var(--indigo-soft); }
+.chip.matched { border-color: var(--ok); background: var(--ok-soft); cursor: default; }
+.chip.wrong { border-color: var(--bad); background: var(--bad-soft); animation: shake .35s; }
+.chip .pairno { float: right; font-family: var(--f-display); color: var(--ok); margin-left: 6px; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.hint { font-size: 14px; color: var(--ink-soft); margin: 0 0 8px; }
+
+/* Order */
+.slots { display: grid; gap: 6px; margin-bottom: 10px; }
+.slot { display: flex; gap: 10px; align-items: center; min-height: 46px; border: 2px dashed var(--line); border-radius: 12px; padding: 4px 8px; }
+.slot .sn { font-family: var(--f-display); color: var(--indigo); width: 24px; text-align: center; flex: 0 0 auto; }
+.slot .chip { border-style: solid; }
+.slot.ok { border-color: var(--ok); border-style: solid; background: var(--ok-soft); }
+.slot.bad { border-color: var(--bad); border-style: solid; background: var(--bad-soft); }
+.pool { display: flex; flex-wrap: wrap; gap: 8px; }
+.pool .chip { width: auto; }
+.actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.btn { font: 800 15px var(--f-body); border-radius: 999px; padding: 9px 18px; cursor: pointer; border: 2px solid var(--indigo); background: var(--indigo); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--indigo); }
+.btn:disabled { opacity: .45; cursor: default; }
+
+.summary { background: var(--surface); border: 2px solid var(--gold); border-radius: 16px; padding: 18px; text-align: center; display: grid; gap: 8px; justify-items: center; }
+.summary .big { font-family: var(--f-display); font-size: 40px; line-height: 1; color: var(--indigo); font-variant-numeric: tabular-nums; }
+.stars { font-size: 30px; letter-spacing: 4px; color: var(--gold); }
+.stars .off { color: var(--line); }
+
+nav.tabs button.tab-kuiz { border-color: var(--gold); }
+nav.tabs button.tab-kuiz .n { background: var(--gold-soft); color: var(--gold); }
+nav.tabs button.tab-kuiz[aria-selected="true"] { background: var(--gold); border-color: var(--gold); color: var(--surface); }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+.topic { font-family: var(--f-body); color: var(--ink); text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 16px; cursor: pointer; display: grid; gap: 4px; justify-items: start; }
+.topic:hover { border-color: var(--indigo); }
+.topic.mix { border-color: var(--gold); background: var(--gold-soft); }
+.topic-no { font-family: var(--f-display); font-size: 18px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); }
+.topic.mix .topic-no { background: var(--gold); color: var(--surface); }
+.topic-name { font-family: var(--f-display); font-size: 20px; line-height: 1.2; }
+.topic-sub { font-size: 14px; color: var(--ink-soft); font-weight: 700; }
+#quiz-stage { margin-top: 12px; }
+.stage-body { background: var(--surface-2); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; padding: 16px; display: grid; gap: 14px; }
+.counter { font-weight: 800; font-size: 15px; opacity: .9; }
+.nav-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.nav-row .btn { min-height: 46px; padding-inline: 22px; font-size: 16px; }
+.review { text-align: left; width: 100%; display: grid; gap: 8px; margin-top: 6px; }
+.review h4 { margin: 0; font-family: var(--f-display); font-size: 18px; color: var(--bad); }
+.review .item { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; font-size: 15px; }
+.review .item b { color: var(--ok); }
+.summary .actions { justify-content: center; }
+.video { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.song a { color: var(--indigo); font-weight: 800; }
+footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (max-width: 520px) { .match { gap: 6px 8px; } .chip { font-size: 14px; padding: 7px 9px; } .q { padding: 12px; } .qlist { padding: 10px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Pendidikan Islam JAIS · Jawi Tahun 2</span>
+    <h1>Nota Ringkas &amp; Kuiz Jawi</h1>
+    <p class="lead">Baca nota setiap tajuk dahulu, kemudian buka menu Kuiz. Setiap set 10 soalan rawak, satu demi satu. Jawapan disemak terus: hijau betul, merah salah.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Menu">
+    <button role="tab" id="tab-vb" aria-controls="p-vb" aria-selected="true"><span class="n">1</span>Vokal Berganding</button>
+    <button role="tab" id="tab-vbh" aria-controls="p-vbh" aria-selected="false"><span class="n">2</span>Vokal Berganding dengan Hamzah</button>
+    <button role="tab" id="tab-kuiz" class="tab-kuiz" aria-controls="p-kuiz" aria-selected="false"><span class="n">?</span>Kuiz</button>
+  </nav>
+
+  <!-- ============ KUIZ ============ -->
+  <section id="p-kuiz" role="tabpanel" aria-labelledby="tab-kuiz" hidden>
+    <div id="quiz-menu">
+      <div class="panel-head"><h2>Kuiz Jawi</h2><span class="pages">Setiap set 10 soalan, berbeza setiap kali dibuka</span></div>
+      <div class="menu-grid">
+        <button type="button" class="topic" data-topic="vb"><span class="topic-no">1</span><span class="topic-name">Vokal Berganding "ia", "iu", "ua"</span><span class="topic-sub" data-pages="m/s 37–45"></span></button>
+        <button type="button" class="topic" data-topic="vbh"><span class="topic-no">2</span><span class="topic-name">Vokal Berganding dengan Hamzah "ai", "au", "ui"</span><span class="topic-sub" data-pages="m/s 46–55"></span></button>
+        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran kedua-dua topik</span><span class="topic-sub" data-pages="semua topik"></span></button>
+      </div>
+    </div>
+    <div id="quiz-stage" hidden></div>
+  </section>
+
+  <!-- ============ VOKAL BERGANDING ============ -->
+  <section id="p-vb" role="tabpanel" aria-labelledby="tab-vb">
+    <div class="panel-head">
+      <h2>Vokal Berganding "ia", "iu" dan "ua"</h2>
+      <span class="pages">Buku teks m/s 37–45</span>
+    </div>
+    <div class="jawi-title">ۏوکل برݢنديڠ</div>
+
+    <div class="notes">
+      <div class="key">Vokal berganding ialah <strong>gabungan dua huruf vokal</strong> dalam satu perkataan, iaitu <strong>ia, iu dan ua</strong>. Ia disebut dalam <strong>dua suku kata</strong> dan dieja <strong>mengikut padanan huruf</strong>: i = <span class="ar">ي</span>, a = <span class="ar">ا</span>, u = <span class="ar">و</span>. <strong>Tiada hamzah.</strong></div>
+
+      <div class="grid3">
+        <div class="block vgroup">
+          <h3>"ia" <span class="ar">يا</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+        <div class="block vgroup">
+          <h3>"iu" <span class="ar">يو</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+        <div class="block vgroup">
+          <h3>"ua" <span class="ar">وا</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Contoh suku kata</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Perkataan</th><th>Suku kata</th><th>Jawi</th></tr></thead>
+            <tbody>
+              <tr><td>biar</td><td>bi + ar</td><td><span class="ar">بيار</span></td></tr>
+              <tr><td>piano</td><td>pi + a + no</td><td><span class="ar">ڤيانو</span></td></tr>
+              <tr><td>tiup</td><td>ti + up</td><td><span class="ar">تيوڤ</span></td></tr>
+              <tr><td>tuan</td><td>tu + an</td><td><span class="ar">توان</span></td></tr>
+              <tr><td>beruang</td><td>be + ru + ang</td><td><span class="ar">برواڠ</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Tahukah anda?</h3>
+          <ul>
+            <li>Vokal berganding "ia", "iu" dan "ua" ditulis mengikut padanan huruf.</li>
+            <li>Contoh: biar = b + i + a + r = <span class="ar">ب + ي + ا + ر = بيار</span></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Amalkan</h3>
+          <ul>
+            <li>Bertolong-tolonglah dalam perkara kebaikan dan takwa (Surah al-Ma'idah: 2).</li>
+            <li>Berbuat baik dengan rakan sekelas.</li>
+            <li>Membantu orang yang dalam kesusahan.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VOKAL BERGANDING DENGAN HAMZAH ============ -->
+  <section id="p-vbh" role="tabpanel" aria-labelledby="tab-vbh" hidden>
+    <div class="panel-head">
+      <h2>Vokal Berganding dengan Hamzah "ai", "au" dan "ui"</h2>
+      <span class="pages">Buku teks m/s 46–55</span>
+    </div>
+    <div class="jawi-title">ۏوکل برݢنديڠ دڠن همزة</div>
+
+    <div class="notes">
+      <div class="key">Vokal berganding <strong>"ai", "au" dan "ui"</strong> <strong>tidak dieja mengikut padanan huruf</strong>. Huruf <strong>hamzah <span class="ar">ء</span></strong> disisipkan di antara dua vokal itu. Hamzah ini dipanggil <strong>hamzah pembeza</strong> kerana ia membezakan dua bunyi yang berlainan maksud.</div>
+
+      <div class="grid3">
+        <div class="block vgroup">
+          <h3>"ai" <span class="ar">اءي</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+        <div class="block vgroup">
+          <h3>"au" <span class="ar">اءو</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+        <div class="block vgroup">
+          <h3>"ui" <span class="ar">وءي</span></h3>
+          <table class="words"><tbody></tbody></table>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Bezakan: tanpa hamzah (salah) dan dengan hamzah pembeza (betul)</h3>
+        <div class="tbl-wrap">
+          <table class="cmp">
+            <thead><tr><th>Perkataan</th><th>Ikut padanan huruf ✗</th><th>Dengan hamzah pembeza ✓</th></tr></thead>
+            <tbody>
+              <tr><td>daik</td><td class="no"><span class="ar">دايق</span></td><td class="yes"><span class="ar">داءيق</span></td></tr>
+              <tr><td>lain</td><td class="no"><span class="ar">لاين</span></td><td class="yes"><span class="ar">لاءين</span></td></tr>
+              <tr><td>kain</td><td class="no"><span class="ar">كاين</span></td><td class="yes"><span class="ar">كاءين</span></td></tr>
+              <tr><td>saing</td><td class="no"><span class="ar">سايڠ</span></td><td class="yes"><span class="ar">ساءيڠ</span></td></tr>
+              <tr><td>baung</td><td class="no"><span class="ar">باوڠ</span></td><td class="yes"><span class="ar">باءوڠ</span></td></tr>
+              <tr><td>raung</td><td class="no"><span class="ar">راوڠ</span></td><td class="yes"><span class="ar">راءوڠ</span></td></tr>
+              <tr><td>sauh</td><td class="no"><span class="ar">ساوه</span></td><td class="yes"><span class="ar">ساءوه</span></td></tr>
+              <tr><td>lauk</td><td class="no"><span class="ar">لاوق</span></td><td class="yes"><span class="ar">لاءوق</span></td></tr>
+              <tr><td>cuit</td><td class="no"><span class="ar">چويت</span></td><td class="yes"><span class="ar">چوءيت</span></td></tr>
+              <tr><td>juih</td><td class="no"><span class="ar">جويه</span></td><td class="yes"><span class="ar">جوءيه</span></td></tr>
+              <tr><td>puing</td><td class="no"><span class="ar">ڤويڠ</span></td><td class="yes"><span class="ar">ڤوءيڠ</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Pecahan suku kata "au" (m/s 52)</h3>
+        <p>Hamzah berada pada permulaan suku kata kedua: gaul = <span class="ar">ݢا + ءول</span></p>
+        <div class="tbl-wrap">
+          <table>
+            <tbody>
+              <tr><td>gaul</td><td><span class="ar">ݢا + ءول = ݢاءول</span></td></tr>
+              <tr><td>maung</td><td><span class="ar">ما + ءوڠ = ماءوڠ</span></td></tr>
+              <tr><td>paut</td><td><span class="ar">ڤا + ءوت = ڤاءوت</span></td></tr>
+              <tr><td>sauk</td><td><span class="ar">سا + ءوق = ساءوق</span></td></tr>
+              <tr><td>taut</td><td><span class="ar">تا + ءوت = تاءوت</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Tahukah anda?</h3>
+          <ul>
+            <li>Huruf hamzah yang terletak pada vokal berganding "ai" disebut <b>hamzah pembeza</b>. Hamzah itu membezakan dua bunyi yang berlainan maksud.</li>
+            <li>Hamzah pembeza disisipkan di antara dua vokal berganding untuk membezakan bunyi.</li>
+            <li>Vokal berganding "ai", "au", "ui" tidak dieja mengikut padanan huruf.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Amalkan</h3>
+          <ul>
+            <li>Muliakan tetamu, itu sunnah Rasulullah.</li>
+            <li>Sentiasa mengucapkan terima kasih.</li>
+            <li>Hargai pertolongan orang lain.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Disediakan berpandukan Buku Teks Jawi Tahun 2, Sekolah Rendah Agama Negeri Selangor (JAIS).</footer>
+</div>
+
+<script>
+const AR = s => `<span class="ar">${s}</span>`;
+
+// Senarai perkataan daripada buku teks [rumi, jawi]
+const W = {
+  ia: [['piano','ڤيانو'],['piala','ڤيالا'],['tiang','تياڠ'],['biawak','بياوق'],['piatu','ڤياتو'],['biasiswa','بياسيسوا'],['biaya','بياي'],['setiap','ستياڤ'],['biar','بيار'],['riang','رياڠ'],['giat','ݢيات'],['hias','هياس'],['liar','ليار'],['siam','سيام'],['siar','سيار'],['riak','رياق'],['kias','كياس'],['liat','ليات'],['siang','سياڠ'],['siap','سياڤ'],['diam','ديام']],
+  iu: [['tiup','تيوڤ'],['bius','بيوس'],['riuh','ريوه'],['kiub','كيوب'],['liur','ليور'],['tiung','تيوڠ'],['tiub','تيوب'],['siur','سيور'],['cium','چيوم'],['liut','ليوت'],['siung','سيوڠ'],['siul','سيول'],['kiut','كيوت']],
+  ua: [['puan','ڤوان'],['tuan','توان'],['jual','جوال'],['luah','لواه'],['buah','بواه'],['bertuah','برتواه'],['luas','لواس'],['kuah','كواه'],['luang','لواڠ'],['suap','سواڤ'],['muak','مواق'],['beruang','برواڠ'],['keluang','كلواڠ'],['peluang','ڤلواڠ'],['lengkuas','لڠكواس']],
+  ai: [['paip','ڤاءيڤ'],['kail','كاءيل'],['kain','كاءين'],['pais','ڤاءيس'],['baik','باءيق'],['main','ماءين'],['daik','داءيق'],['lain','لاءين'],['saing','ساءيڠ'],['raih','راءيه'],['kais','كاءيس'],['cair','چاءير'],['naik','ناءيق'],['kait','كاءيت'],['jail','جاءيل'],['bait','باءيت'],['taip','تاءيڤ'],['dail','داءيل'],['saiz','ساءيز']],
+  au: [['gaun','ݢاءون'],['baung','باءوڠ'],['sauh','ساءوه'],['laut','لاءوت'],['raut','راءوت'],['paus','ڤاءوس'],['jauh','جاءوه'],['lauk','لاءوق'],['kaunter','كاءونتر'],['laung','لاءوڠ'],['haus','هاءوس'],['daun','داءون'],['baur','باءور'],['pauh','ڤاءوه'],['kaut','كاءوت'],['raung','راءوڠ'],['gaul','ݢاءول'],['maung','ماءوڠ'],['paut','ڤاءوت'],['sauk','ساءوق'],['taut','تاءوت'],['gaung','ݢاءوڠ']],
+  ui: [['buih','بوءيه'],['suis','سوءيس'],['kuiz','كوءيز'],['kuih','كوءيه'],['duit','دوءيت'],['cuit','چوءيت'],['juih','جوءيه'],['puing','ڤوءيڠ']],
+};
+const PAIR = { ia: 'يا', iu: 'يو', ua: 'وا', ai: 'اءي', au: 'اءو', ui: 'وءي' };
+
+// Isi jadual perkataan dalam nota
+document.querySelectorAll('.vgroup').forEach(box => {
+  const g = box.querySelector('h3').textContent.match(/"(\w+)"/)[1];
+  box.querySelector('tbody').innerHTML = W[g].map(([r, j]) => `<tr><td>${r}</td><td>${AR(j)}</td></tr>`).join('');
+});
+
+// Ejaan salah yang biasa dibuat oleh murid
+function wrongSpellings(g, j) {
+  const p = PAIR[g], at = j.indexOf(p);
+  const cut = (s) => j.slice(0, at) + s + j.slice(at + p.length);
+  let w;
+  if (g === 'ia' || g === 'iu' || g === 'ua') {
+    w = [cut(p[0] + 'ء' + p[1]), cut(p[0]), cut(g === 'ua' ? 'وي' : g === 'ia' ? 'يو' : 'يا')];
+  } else {
+    w = [cut(p[0] + p[2]), cut('ء' + p[0] + p[2]), cut(p[0] + 'ء')];
+  }
+  return [...new Set(w)].filter(x => x !== j).slice(0, 3);
+}
+
+function genBank(groups) {
+  const bank = [];
+  const all = groups.flatMap(g => W[g].map(([r, j]) => ({ g, r, j })));
+  all.forEach((w, i) => {
+    const wrong = wrongSpellings(w.g, w.j);
+    const rule = ['ia', 'iu', 'ua'].includes(w.g) ? `"${w.g}" dieja mengikut padanan huruf, tanpa hamzah.` : `"${w.g}" perlu hamzah pembeza ${AR('ء')}.`;
+    if (i % 2 === 0 && wrong.length === 3) bank.push({ t: 'mcq', q: `Pilih ejaan Jawi yang betul bagi perkataan <b>${w.r}</b>.`, o: [AR(w.j), ...wrong.map(AR)], a: 0, why: rule });
+    else if (i % 4 === 1) bank.push({ t: 'tf', q: `Ejaan ${AR(w.j)} bagi perkataan <b>${w.r}</b> adalah betul.`, a: true, why: rule });
+    else if (wrong.length) bank.push({ t: 'tf', q: `Ejaan ${AR(wrong[0])} bagi perkataan <b>${w.r}</b> adalah betul.`, a: false, why: `Ejaan betul: ${AR(w.j)}. ${rule}` });
+    if (i % 3 === 0) {
+      const same = W[w.g], k = same.findIndex(x => x[0] === w.r);
+      const others = [1, 2, 3].map(d => same[(k + d) % same.length][0]);
+      bank.push({ t: 'mcq', q: `Perkataan ${AR(w.j)} dibaca...`, o: [w.r, ...others], a: 0 });
+    }
+    if (i % 3 === 1) {
+      const opts = groups.length === 3 ? [...groups, groups.includes('ia') ? 'ai' : 'ia'] : groups;
+      const o = [w.g, ...opts.filter(x => x !== w.g)].map(x => `"${x}"`);
+      bank.push({ t: 'mcq', q: `Perkataan <b>${w.r}</b> ${AR(w.j)} mengandungi vokal berganding...`, o, a: 0 });
+    }
+    const letters = [...w.j];
+    if (i % 3 === 2 && letters.length <= 6 && new Set(letters).size === letters.length)
+      bank.push({ t: 'order', ar: true, q: `Susun huruf untuk mengeja <b>${w.r}</b>. Mula dengan huruf pertama.`, items: letters });
+  });
+  for (let i = 0; i + 4 <= all.length; i += 7) {
+    const pick = [0, 2, 4, 6].map(d => all[(i + d) % all.length]);
+    if (new Set(pick.map(x => x.r)).size === 4)
+      bank.push({ t: 'match', q: 'Padankan perkataan Rumi dengan ejaan Jawinya.', L: 'Rumi', R: 'Jawi', pairs: pick.map(x => [x.r, AR(x.j)]) });
+  }
+  return bank;
+}
+
+const QUIZ = {
+  vb: [
+    ...genBank(['ia', 'iu', 'ua']),
+    { t: 'tf', q: 'Vokal berganding ialah gabungan dua huruf vokal dalam satu perkataan.', a: true },
+    { t: 'tf', q: 'Vokal berganding "ia", "iu" dan "ua" dieja mengikut padanan huruf.', a: true },
+    { t: 'tf', q: 'Vokal berganding "ia" disebut dalam dua suku kata.', a: true },
+    { t: 'tf', q: `Perkataan <b>biar</b> dieja ${AR('بيءار')} dengan hamzah.`, a: false, why: `"ia" tidak menggunakan hamzah. Ejaan betul: ${AR('بيار')}.` },
+    { t: 'tf', q: `Ejaan ${AR('توان')} bagi perkataan <b>tuan</b> adalah betul.`, a: true },
+    { t: 'tf', q: `Ejaan ${AR('تيوڤ')} bagi perkataan <b>tiup</b> adalah betul.`, a: true },
+    { t: 'mcq', q: 'Manakah contoh vokal berganding yang dipelajari dalam unit ini?', o: ['ia, iu, ua', 'ai, au, ui', 'ng, ny, sy', 'ba, ta, sa'], a: 0 },
+    { t: 'mcq', q: `Huruf vokal <b>i</b> ditulis dengan huruf Jawi...`, o: [AR('ي'), AR('ا'), AR('و'), AR('ء')], a: 0 },
+    { t: 'mcq', q: `Huruf vokal <b>u</b> ditulis dengan huruf Jawi...`, o: [AR('و'), AR('ي'), AR('ا'), AR('ء')], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>biar</b> ialah...', o: ['bi + ar', 'bia + r', 'b + iar', 'bi + a + r'], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>tuan</b> ialah...', o: ['tu + an', 'tua + n', 't + uan', 'tu + a + n'], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>piano</b> ialah...', o: ['pi + a + no', 'pia + no', 'pi + ano', 'p + ia + no'], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>beruang</b> ialah...', o: ['be + ru + ang', 'ber + uang', 'be + rua + ng', 'beru + ang'], a: 0 },
+    { t: 'mcq', q: 'Pilih perkataan yang mengandungi vokal berganding <b>"iu"</b>.', o: ['tiup', 'tuan', 'biar', 'kain'], a: 0 },
+    { t: 'mcq', q: 'Pilih perkataan yang mengandungi vokal berganding <b>"ua"</b>.', o: ['buah', 'riuh', 'siap', 'laut'], a: 0 },
+    { t: 'mcq', q: 'Pilih perkataan yang mengandungi vokal berganding <b>"ia"</b>.', o: ['diam', 'liur', 'jual', 'paip'], a: 0 },
+    { t: 'mcq', q: `Lengkapkan: Ahmad anak yatim ______. ${AR('احمد انق يتيم ...')}`, o: [AR('ڤياتو'), AR('ڤيءاتو'), AR('ڤاتو'), AR('ڤيوتو')], a: 0, why: 'piatu = ڤياتو' },
+    { t: 'mcq', q: `Lengkapkan: Ahmad mendapat ______ (piala). ${AR('احمد منداڤت ...')}`, o: [AR('ڤيالا'), AR('ڤيءالا'), AR('ڤالا'), AR('ڤوالا')], a: 0 },
+  ],
+  vbh: [
+    ...genBank(['ai', 'au', 'ui']),
+    { t: 'tf', q: 'Vokal berganding "ai", "au" dan "ui" dieja mengikut padanan huruf.', a: false, why: 'Ia perlu hamzah pembeza ء di antara dua vokal.' },
+    { t: 'tf', q: 'Huruf hamzah yang terletak pada vokal berganding "ai" disebut hamzah pembeza.', a: true },
+    { t: 'tf', q: 'Hamzah pembeza disisipkan di antara dua vokal berganding.', a: true },
+    { t: 'tf', q: 'Hamzah pembeza membezakan dua bunyi yang berlainan maksud.', a: true },
+    { t: 'tf', q: `Ejaan ${AR('كاين')} bagi perkataan <b>kain</b> adalah betul.`, a: false, why: `Perlu hamzah pembeza: ${AR('كاءين')}.` },
+    { t: 'tf', q: `Ejaan ${AR('ساءوه')} bagi perkataan <b>sauh</b> adalah betul.`, a: true },
+    { t: 'tf', q: `Ejaan ${AR('دوءيت')} bagi perkataan <b>duit</b> adalah betul.`, a: true },
+    { t: 'tf', q: `Ejaan ${AR('لاوق')} bagi perkataan <b>lauk</b> adalah betul.`, a: false, why: `Perlu hamzah pembeza: ${AR('لاءوق')}.` },
+    { t: 'mcq', q: 'Apakah nama huruf hamzah yang disisipkan pada vokal berganding "ai", "au" dan "ui"?', o: ['Hamzah pembeza', 'Hamzah sukun', 'Hamzah wasal', 'Hamzah atas alif'], a: 0 },
+    { t: 'mcq', q: 'Di manakah hamzah pembeza diletakkan?', o: ['Di antara dua vokal berganding', 'Di awal perkataan', 'Di akhir perkataan', 'Tidak perlu diletakkan'], a: 0 },
+    { t: 'mcq', q: 'Manakah perkataan yang PERLU ditulis dengan hamzah?', o: ['kain', 'biar', 'tuan', 'tiup'], a: 0 },
+    { t: 'mcq', q: 'Manakah perkataan yang PERLU ditulis dengan hamzah?', o: ['laut', 'buah', 'siap', 'riuh'], a: 0 },
+    { t: 'mcq', q: 'Manakah perkataan yang PERLU ditulis dengan hamzah?', o: ['kuih', 'jual', 'liar', 'kiub'], a: 0 },
+    { t: 'mcq', q: `Pecahan suku kata Jawi bagi <b>gaul</b> ialah...`, o: [AR('ݢا + ءول'), AR('ݢء + اول'), AR('ݢاء + ول'), AR('ݢ + اءول')], a: 0 },
+    { t: 'mcq', q: `Pecahan suku kata Jawi bagi <b>paut</b> ialah...`, o: [AR('ڤا + ءوت'), AR('ڤاء + وت'), AR('ڤ + اءوت'), AR('ڤء + اوت')], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>kain</b> ialah...', o: ['ka + in', 'kai + n', 'k + ain', 'ka + i + n'], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>laut</b> ialah...', o: ['la + ut', 'lau + t', 'l + aut', 'la + u + t'], a: 0 },
+    { t: 'mcq', q: 'Pecahan suku kata yang betul bagi <b>buih</b> ialah...', o: ['bu + ih', 'bui + h', 'b + uih', 'bu + i + h'], a: 0 },
+    { t: 'mcq', q: `Lengkapkan: Ikan ______ sangat besar. ${AR('ايكن ... ساڠت بسر')}`, o: [AR('ڤاءوس'), AR('ڤاوس'), AR('ڤءاوس'), AR('ڤاءس')], a: 0, why: 'paus = ڤاءوس' },
+    { t: 'mcq', q: `Lengkapkan: Buat ______ berpada-pada. ${AR('بوات ... برڤادا-ڤادا')}`, o: [AR('باءيق'), AR('بايق'), AR('بءايق'), AR('باءق')], a: 0, why: 'baik = باءيق' },
+    { t: 'mcq', q: `Lengkapkan: Tiup ______ sabun. ${AR('تيوڤ ... سابون')}`, o: [AR('بوءيه'), AR('بويه'), AR('بءويه'), AR('بوءه')], a: 0, why: 'buih = بوءيه' },
+    { t: 'match', q: 'Padankan ejaan tanpa hamzah (salah) dengan ejaan yang betul.', L: 'Salah', R: 'Betul', pairs: [
+      [AR('دايق'), AR('داءيق')], [AR('باوڠ'), AR('باءوڠ')], [AR('چويت'), AR('چوءيت')], [AR('ساوه'), AR('ساءوه')] ] },
+  ],
+};
+
+const TOPIC_NAME = { vb: 'Vokal Berganding "ia", "iu", "ua"', vbh: 'Vokal Berganding dengan Hamzah', campur: 'Campuran kedua-dua topik' };
+const STORE = 'jawi2';
+const HASH_TABS = { vb: 'tab-vb', vbh: 'tab-vbh', kuiz: 'tab-kuiz' };
+const FIRST_TAB = 'tab-vb';
+
+const TYPE_LABEL = { mcq: 'Pilih jawapan', tf: 'Betul / Salah', match: 'Padankan', order: 'Susun' };
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function shuffleDiff(a) { if (a.length < 2) return a.slice(); let s; do { s = shuffle(a); } while (s.every((x, i) => x === a[i])); return s; }
+function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+const RENDER = () => ({ mcq: renderMcq, tf: renderTf, match: renderMatch, order: renderOrder });
+
+function answerText(q) {
+  if (q.t === 'mcq') return q.o[q.a];
+  if (q.t === 'tf') return q.a ? 'Betul' : 'Salah';
+  if (q.t === 'match') return q.pairs.map(p => `${p[0]} – ${p[1]}`).join('; ');
+  return q.ar ? `<span class="ar">${q.items.join(q.items.every(x => x.length === 1) ? ' ' : ' ، ')}</span>` : q.items.join(' → ');
+}
+
+const PER_SET = 10;
+const bankOf = t => t === 'campur' ? Object.values(QUIZ).flat() : QUIZ[t];
+// Utamakan soalan yang belum keluar supaya setiap set berbeza; reset bila hampir habis.
+function pickSet(topic) {
+  const bank = bankOf(topic);
+  let seen = [];
+  try { seen = JSON.parse(localStorage.getItem(STORE + '-seen-' + topic) || '[]'); } catch (e) {}
+  let fresh = bank.map((_, i) => i).filter(i => !seen.includes(i));
+  if (fresh.length < PER_SET) { seen = []; fresh = bank.map((_, i) => i); }
+  const chosen = shuffle(fresh).slice(0, PER_SET);
+  try { localStorage.setItem(STORE + '-seen-' + topic, JSON.stringify([...seen, ...chosen])); } catch (e) {}
+  return chosen.map(i => bank[i]);
+}
+
+const menu = document.getElementById('quiz-menu');
+const stage = document.getElementById('quiz-stage');
+
+function startQuiz(topic) {
+  const qs = pickSet(topic);
+  const state = { i: 0, ok: 0, wrong: [] };
+  menu.hidden = true; stage.hidden = false;
+  stage.innerHTML = '';
+
+  const head = el('div', 'quiz-head');
+  const title = el('h3', null, TOPIC_NAME[topic]);
+  const counter = el('span', 'counter');
+  const score = el('span', 'score');
+  head.append(title, counter, score);
+  const prog = el('div', 'progress'); const bar = el('i'); prog.append(bar);
+  const body = el('div', 'stage-body');
+  stage.append(head, prog, body);
+
+  function exitToMenu() { stage.hidden = true; menu.hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  function show() {
+    const q = qs[state.i];
+    counter.textContent = `Soalan ${state.i + 1} / ${qs.length}`;
+    score.textContent = `${state.ok} betul`;
+    bar.style.width = (state.i / qs.length * 100) + '%';
+    body.innerHTML = '';
+
+    const card = el('div', 'q');
+    const meta = el('div', 'q-meta');
+    meta.append(el('span', 'q-no', `Soalan ${state.i + 1}`), el('span', 'q-type', TYPE_LABEL[q.t]));
+    card.append(meta, el('p', 'q-text', q.q));
+
+    const nav = el('div', 'nav-row');
+    const quit = el('button', 'btn ghost', 'Keluar'); quit.type = 'button';
+    const last = state.i === qs.length - 1;
+    const next = el('button', 'btn', last ? 'Lihat keputusan' : 'Seterusnya →'); next.type = 'button'; next.disabled = true;
+    nav.append(quit, next);
+    quit.addEventListener('click', exitToMenu);
+    next.addEventListener('click', () => { if (last) summary(); else { state.i++; show(); } window.scrollTo({ top: stage.offsetTop - 70, behavior: 'smooth' }); });
+
+    const finish = (c, correct) => {
+      if (correct) state.ok++; else state.wrong.push({ n: state.i + 1, q });
+      c.classList.add(correct ? 'done-ok' : 'done-bad');
+      score.textContent = `${state.ok} betul`;
+      bar.style.width = ((state.i + 1) / qs.length * 100) + '%';
+      next.disabled = false; next.focus({ preventScroll: true });
+    };
+    const feedback = (c, correct, extra) => {
+      const fb = el('div', 'fb ' + (correct ? 'ok' : 'bad'), correct ? '✓ Betul! Syabas.' : '✗ Salah.');
+      if (extra) fb.append(el('span', 'why', extra));
+      c.append(fb);
+    };
+    RENDER()[q.t](q, card, finish, feedback);
+    body.append(card, nav);
+  }
+
+  function summary() {
+    counter.textContent = 'Selesai';
+    bar.style.width = '100%';
+    body.innerHTML = '';
+    const pct = state.ok / qs.length;
+    const n = pct >= .9 ? 3 : pct >= .6 ? 2 : pct >= .3 ? 1 : 0;
+    const msg = n === 3 ? 'Cemerlang! Ilmu kamu sangat mantap.' : n === 2 ? 'Bagus! Ulang baca nota untuk soalan yang salah.' : 'Jangan putus asa. Baca nota sekali lagi dan cuba semula.';
+    const s = el('div', 'summary');
+    s.append(el('div', 'stars', '★'.repeat(n) + `<span class="off">${'★'.repeat(3 - n)}</span>`));
+    s.append(el('div', 'big', `${state.ok} / ${qs.length}`));
+    s.append(el('div', null, msg));
+    if (state.wrong.length) {
+      const r = el('div', 'review');
+      r.append(el('h4', null, 'Soalan yang salah'));
+      state.wrong.forEach(w => r.append(el('div', 'item', `<div>${w.n}. ${w.q.q}</div><div>Jawapan: <b>${answerText(w.q)}</b></div>`)));
+      s.append(r);
+    }
+    const acts = el('div', 'actions');
+    const again = el('button', 'btn', 'Cuba lagi'); again.type = 'button';
+    const other = el('button', 'btn ghost', 'Pilih topik lain'); other.type = 'button';
+    again.addEventListener('click', () => startQuiz(topic));
+    other.addEventListener('click', exitToMenu);
+    acts.append(again, other);
+    s.append(acts);
+    body.append(s);
+  }
+
+  show();
+}
+
+document.querySelectorAll('.topic').forEach(b => {
+  const sub = b.querySelector('.topic-sub');
+  sub.textContent = `${PER_SET} soalan rawak setiap set · ${bankOf(b.dataset.topic).length} soalan dalam bank · ${sub.dataset.pages}`;
+  b.addEventListener('click', () => startQuiz(b.dataset.topic));
+});
+
+function renderMcq(q, card, finish, feedback) {
+  const box = el('div', 'opts');
+  const order = shuffle(q.o.map((_, i) => i));
+  const btns = order.map((oi, k) => {
+    const b = el('button', 'opt', `<span class="letter">${LETTERS[k]}</span><span>${q.o[oi]}</span>`);
+    b.type = 'button'; b.dataset.i = oi; box.append(b); return b;
+  });
+  btns.forEach(b => b.addEventListener('click', () => {
+    const correct = +b.dataset.i === q.a;
+    btns.forEach(x => { x.disabled = true; if (+x.dataset.i === q.a) x.classList.add('ok'); else if (x !== b) x.classList.add('dim'); });
+    if (!correct) b.classList.add('bad');
+    feedback(card, correct, correct ? q.why : `Jawapan betul: ${q.o[q.a]}.${q.why ? ' ' + q.why : ''}`);
+    finish(card, correct);
+  }));
+  card.append(box);
+}
+
+function renderTf(q, card, finish, feedback) {
+  const box = el('div', 'opts tf');
+  const mk = (label, val) => { const b = el('button', 'opt', label); b.type = 'button'; b.dataset.v = val; box.append(b); return b; };
+  const btns = [mk('Betul', 'true'), mk('Salah', 'false')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    const correct = (b.dataset.v === 'true') === q.a;
+    btns.forEach(x => { x.disabled = true; if ((x.dataset.v === 'true') === q.a) x.classList.add('ok'); else if (x !== b) x.classList.add('dim'); });
+    if (!correct) b.classList.add('bad');
+    feedback(card, correct, correct ? q.why : `Pernyataan ini ${q.a ? 'BETUL' : 'SALAH'}.${q.why ? ' ' + q.why : ''}`);
+    finish(card, correct);
+  }));
+  card.append(box);
+}
+
+function renderMatch(q, card, finish, feedback) {
+  card.append(el('p', 'hint', 'Tekan satu di kiri, kemudian tekan pasangannya di kanan.'));
+  const wrap = el('div', 'match');
+  const lc = el('div', 'col'), rc = el('div', 'col');
+  lc.append(el('div', 'col-h', q.L)); rc.append(el('div', 'col-h', q.R));
+  const left = q.pairs.map((p, i) => { const b = el('button', 'chip', p[0]); b.type = 'button'; b.dataset.i = i; return b; });
+  const right = shuffleDiff(q.pairs.map((_, i) => i)).map(i => { const b = el('button', 'chip', q.pairs[i][1]); b.type = 'button'; b.dataset.i = i; return b; });
+  left.forEach(b => lc.append(b)); right.forEach(b => rc.append(b));
+  wrap.append(lc, rc); card.append(wrap);
+
+  let sel = null, mistakes = 0, matched = 0;
+  left.forEach(b => b.addEventListener('click', () => {
+    if (b.classList.contains('matched')) return;
+    left.forEach(x => x.classList.remove('sel')); b.classList.add('sel'); sel = b;
+  }));
+  right.forEach(b => b.addEventListener('click', () => {
+    if (b.classList.contains('matched')) return;
+    if (!sel) { left.find(x => !x.classList.contains('matched'))?.focus(); return; }
+    if (b.dataset.i === sel.dataset.i) {
+      matched++;
+      [sel, b].forEach(x => { x.classList.remove('sel'); x.classList.add('matched'); x.disabled = true; x.insertAdjacentHTML('afterbegin', `<span class="pairno">${matched}</span>`); });
+      sel = null;
+      if (matched === q.pairs.length) {
+        const correct = mistakes === 0;
+        feedback(card, correct, correct ? 'Semua padanan betul pada cubaan pertama.' : `Selesai, tetapi ada ${mistakes} padanan salah. Cuba ingat semula jadual dalam nota.`);
+        finish(card, correct);
+      }
+    } else {
+      mistakes++;
+      const pair = [b, sel];
+      pair.forEach(x => { x.classList.remove('wrong'); void x.offsetWidth; x.classList.add('wrong'); });
+      setTimeout(() => pair.forEach(x => x.classList.remove('wrong')), 450);
+    }
+  }));
+}
+
+function renderOrder(q, card, finish, feedback) {
+  card.append(el('p', 'hint', 'Tekan kad mengikut urutan. Tekan kad di dalam kotak untuk mengeluarkannya semula.'));
+  const fmt = s => q.ar ? `<span class="ar">${s}</span>` : s;
+  const slotsBox = el('div', 'slots');
+  const slots = q.items.map((_, i) => { const s = el('div', 'slot', `<span class="sn">${i + 1}</span>`); slotsBox.append(s); return s; });
+  const pool = el('div', 'pool');
+  const placed = new Array(q.items.length).fill(null);
+  const actions = el('div', 'actions');
+  const check = el('button', 'btn', 'Semak jawapan'); check.type = 'button'; check.disabled = true;
+  const reset = el('button', 'btn ghost', 'Mula semula'); reset.type = 'button';
+  actions.append(check, reset);
+  card.append(slotsBox, pool, actions);
+
+  const chips = shuffleDiff(q.items.map((_, i) => i)).map(i => {
+    const c = el('button', 'chip', fmt(q.items[i])); c.type = 'button'; c.dataset.i = i; pool.append(c); return c;
+  });
+  let locked = false;
+  function refresh() { check.disabled = placed.some(p => p === null); }
+  chips.forEach(c => c.addEventListener('click', () => {
+    if (locked) return;
+    const at = placed.indexOf(c);
+    if (at >= 0) { placed[at] = null; pool.append(c); }
+    else { const free = placed.indexOf(null); if (free < 0) return; placed[free] = c; slots[free].append(c); }
+    refresh();
+  }));
+  reset.addEventListener('click', () => {
+    if (locked) return;
+    placed.forEach((c, k) => { if (c) { pool.append(c); placed[k] = null; } }); refresh();
+  });
+  check.addEventListener('click', () => {
+    locked = true; check.disabled = true; reset.disabled = true;
+    let correct = true;
+    placed.forEach((c, k) => { const good = +c.dataset.i === k; if (!good) correct = false; slots[k].classList.add(good ? 'ok' : 'bad'); c.disabled = true; });
+    const ans = q.items.map((s, k) => `${k + 1}. ${s}`).join(q.ar ? ' &nbsp; ' : ' → ');
+    feedback(card, correct, correct ? null : `Urutan betul: ${q.ar ? `<span class="ar">${ans}</span>` : ans}`);
+    finish(card, correct);
+  });
+}
+
+// Tabs
+const tabs = [...document.querySelectorAll('nav.tabs button')];
+function selectTab(btn) {
+  tabs.forEach(t => { const on = t === btn; t.setAttribute('aria-selected', on); document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+  try { localStorage.setItem(STORE + '-tab', btn.id); } catch (e) {}
+}
+tabs.forEach(t => t.addEventListener('click', () => { selectTab(t); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+const hashTab = HASH_TABS[location.hash.slice(1)];
+let saved = null; try { saved = localStorage.getItem(STORE + '-tab'); } catch (e) {}
+const startTab = document.getElementById(hashTab || saved || FIRST_TAB);
+if (startTab) selectTab(startTab);
+</script>
+</body>
+</html>
