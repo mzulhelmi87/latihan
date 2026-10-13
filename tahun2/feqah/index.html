@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feqah Tahun 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&family=Scheherazade+New:wght@400;700&display=swap">
+<style>
+/* Layout: one column "buku nota" — tabs per tajuk, nota dahulu, kuiz di bawah. Tema langit malam dari buku teks. */
+:root {
+  --bg: #ecf5f6;
+  --surface: #ffffff;
+  --surface-2: #f3f9fa;
+  --ink: #13343b;
+  --ink-soft: #4b6b72;
+  --line: #cfe3e6;
+  --indigo: #0e6a80;
+  --indigo-soft: #d9f0f4;
+  --gold: #b97c00;
+  --gold-soft: #fff3d1;
+  --ok: #1d8a57;
+  --ok-soft: #dcf5e8;
+  --bad: #c43d3d;
+  --bad-soft: #fde3e1;
+  --f-display: "Baloo 2", "Nunito", system-ui, sans-serif;
+  --f-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-ar: "Scheherazade New", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e2227; --surface: #153037; --surface-2: #1b3a42; --ink: #e6f6f8; --ink-soft: #9fc3ca;
+    --line: #2a5059; --indigo: #6fd0e4; --indigo-soft: #17414b; --gold: #ffc94a; --gold-soft: #3a3115;
+    --ok: #58d79a; --ok-soft: #173a2b; --bad: #ff8b84; --bad-soft: #452224; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e2227; --surface: #153037; --surface-2: #1b3a42; --ink: #e6f6f8; --ink-soft: #9fc3ca;
+  --line: #2a5059; --indigo: #6fd0e4; --indigo-soft: #17414b; --gold: #ffc94a; --gold-soft: #3a3115;
+  --ok: #58d79a; --ok-soft: #173a2b; --bad: #ff8b84; --bad-soft: #452224; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.6; }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 64px; }
+
+header.top { display: grid; gap: 4px; padding-block: 8px 20px; }
+.eyebrow { font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); }
+h1 { font-family: var(--f-display); font-size: clamp(32px, 7vw, 46px); line-height: 1.05; margin: 0; text-wrap: balance; }
+.lead { color: var(--ink-soft); margin: 0; max-width: 60ch; }
+
+nav.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; gap: 8px; overflow-x: auto; padding-block: 10px; margin-bottom: 8px; }
+nav.tabs button { flex: 0 0 auto; font: 700 15px var(--f-body); color: var(--ink); background: var(--surface); border: 2px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+nav.tabs button .n { font-family: var(--f-display); background: var(--indigo-soft); color: var(--indigo); border-radius: 999px; width: 24px; height: 24px; display: grid; place-items: center; font-size: 14px; }
+nav.tabs button[aria-selected="true"] { background: var(--indigo); border-color: var(--indigo); color: var(--surface); }
+nav.tabs button[aria-selected="true"] .n { background: var(--surface); color: var(--indigo); }
+button:focus-visible, .opt:focus-visible, .chip:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin: 18px 0 6px; }
+h2 { font-family: var(--f-display); font-size: clamp(26px, 5vw, 34px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.jawi-title { font-family: var(--f-ar); font-size: 28px; color: var(--indigo); direction: rtl; }
+.pages { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+
+h3 { font-family: var(--f-display); font-size: 21px; margin: 0 0 6px; color: var(--indigo); }
+.notes { display: grid; gap: 14px; margin-top: 14px; }
+.block { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; min-width: 0; }
+.block p { margin: 0 0 8px; }
+.block p:last-child { margin-bottom: 0; }
+.block ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.key { background: var(--gold-soft); border: 1px dashed var(--gold); border-radius: 14px; padding: 12px 16px; font-weight: 700; }
+.key strong { color: var(--gold); }
+
+.ar { font-family: var(--f-ar); direction: rtl; unicode-bidi: isolate; font-size: 1.35em; line-height: 1.9; }
+.ayat { font-family: var(--f-ar); direction: rtl; text-align: right; font-size: 26px; line-height: 2; background: var(--surface-2); border-radius: 10px; padding: 8px 14px; margin: 6px 0 8px; }
+.maksud { font-size: 15px; color: var(--ink-soft); font-style: italic; }
+.ref { font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: .03em; }
+
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 16px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); }
+td .ar { font-size: 1.4em; }
+td.num { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--indigo); }
+
+.block ol { margin: 0; padding-left: 24px; display: grid; gap: 4px; }
+.block ol li::marker { font-family: var(--f-display); color: var(--indigo); }
+/* Sifat cards */
+.sifat-list { display: grid; gap: 14px; }
+.sifat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.sifat-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.sifat-pair > div { padding: 12px 16px; min-width: 0; }
+.sifat-pair .w { background: var(--ok-soft); }
+.sifat-pair .m { background: var(--bad-soft); }
+.tag { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.w .tag { color: var(--ok); } .m .tag { color: var(--bad); }
+.sifat-pair .nm { font-family: var(--f-display); font-size: 20px; line-height: 1.2; }
+.sifat-pair .ar { display: block; font-size: 26px; line-height: 1.6; }
+.sifat-body { padding: 12px 16px 16px; display: grid; gap: 8px; }
+.sifat-body .lbl { font-weight: 800; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+@media (max-width: 480px) { .sifat-pair .nm { font-size: 17px; } .sifat-pair .ar { font-size: 22px; } }
+
+/* Quiz */
+.quiz { margin-top: 28px; }
+.quiz-head { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; justify-content: space-between; background: var(--indigo); color: var(--surface); border-radius: 16px 16px 0 0; padding: 14px 18px; }
+.quiz-head h3 { color: inherit; margin: 0; font-size: 24px; }
+.score { font-family: var(--f-display); font-size: 18px; font-variant-numeric: tabular-nums; background: var(--surface); color: var(--indigo); border-radius: 999px; padding: 2px 14px; }
+.progress { height: 8px; background: var(--indigo-soft); }
+.progress > i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .3s; }
+.qlist { display: grid; gap: 14px; background: var(--surface-2); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; padding: 16px; }
+.q { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 14px 16px; min-width: 0; }
+.q.done-ok { border-color: var(--ok); }
+.q.done-bad { border-color: var(--bad); }
+.q-meta { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.q-no { font-family: var(--f-display); font-size: 16px; color: var(--indigo); }
+.q-type { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); background: var(--gold-soft); border-radius: 999px; padding: 2px 10px; }
+.q-text { font-weight: 700; font-size: 18px; margin: 0 0 10px; }
+.q-text .ar { font-size: 1.45em; }
+.opts { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.opt { font: 700 16px var(--f-body); color: var(--ink); text-align: left; background: var(--surface-2); border: 2px solid var(--line); border-radius: 12px; padding: 10px 14px; cursor: pointer; display: flex; gap: 10px; align-items: center; min-height: 48px; }
+.opt .letter { flex: 0 0 auto; font-family: var(--f-display); width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); font-size: 14px; }
+.opt:hover:not(:disabled) { border-color: var(--indigo); }
+.opt:disabled { cursor: default; }
+.opt.ok { background: var(--ok-soft); border-color: var(--ok); }
+.opt.bad { background: var(--bad-soft); border-color: var(--bad); }
+.opt.ok .letter { background: var(--ok); color: var(--surface); }
+.opt.bad .letter { background: var(--bad); color: var(--surface); }
+.opt.dim { opacity: .55; }
+.tf { grid-template-columns: 1fr 1fr; }
+.tf .opt { justify-content: center; font-size: 18px; }
+
+.fb { margin-top: 10px; border-radius: 10px; padding: 10px 14px; font-weight: 700; }
+.fb.ok { background: var(--ok-soft); color: var(--ok); }
+.fb.bad { background: var(--bad-soft); color: var(--bad); }
+.fb .why { display: block; color: var(--ink); font-weight: 600; margin-top: 2px; }
+
+/* Match */
+.match { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; }
+.match .col { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.match .col-h { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.chip { font: 700 15px var(--f-body); color: var(--ink); background: var(--surface-2); border: 2px solid var(--line); border-radius: 12px; padding: 8px 12px; cursor: pointer; text-align: left; min-height: 46px; width: 100%; }
+.chip .ar { font-size: 1.3em; line-height: 1.4; }
+.chip.sel { border-color: var(--indigo); background: var(--indigo-soft); }
+.chip.matched { border-color: var(--ok); background: var(--ok-soft); cursor: default; }
+.chip.wrong { border-color: var(--bad); background: var(--bad-soft); animation: shake .35s; }
+.chip .pairno { float: right; font-family: var(--f-display); color: var(--ok); margin-left: 6px; }
+@keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.hint { font-size: 14px; color: var(--ink-soft); margin: 0 0 8px; }
+
+/* Order */
+.slots { display: grid; gap: 6px; margin-bottom: 10px; }
+.slot { display: flex; gap: 10px; align-items: center; min-height: 46px; border: 2px dashed var(--line); border-radius: 12px; padding: 4px 8px; }
+.slot .sn { font-family: var(--f-display); color: var(--indigo); width: 24px; text-align: center; flex: 0 0 auto; }
+.slot .chip { border-style: solid; }
+.slot.ok { border-color: var(--ok); border-style: solid; background: var(--ok-soft); }
+.slot.bad { border-color: var(--bad); border-style: solid; background: var(--bad-soft); }
+.pool { display: flex; flex-wrap: wrap; gap: 8px; }
+.pool .chip { width: auto; }
+.actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.btn { font: 800 15px var(--f-body); border-radius: 999px; padding: 9px 18px; cursor: pointer; border: 2px solid var(--indigo); background: var(--indigo); color: var(--surface); }
+.btn.ghost { background: transparent; color: var(--indigo); }
+.btn:disabled { opacity: .45; cursor: default; }
+
+.summary { background: var(--surface); border: 2px solid var(--gold); border-radius: 16px; padding: 18px; text-align: center; display: grid; gap: 8px; justify-items: center; }
+.summary .big { font-family: var(--f-display); font-size: 40px; line-height: 1; color: var(--indigo); font-variant-numeric: tabular-nums; }
+.stars { font-size: 30px; letter-spacing: 4px; color: var(--gold); }
+.stars .off { color: var(--line); }
+
+nav.tabs button.tab-kuiz { border-color: var(--gold); }
+nav.tabs button.tab-kuiz .n { background: var(--gold-soft); color: var(--gold); }
+nav.tabs button.tab-kuiz[aria-selected="true"] { background: var(--gold); border-color: var(--gold); color: var(--surface); }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 14px; }
+.topic { font-family: var(--f-body); color: var(--ink); text-align: left; background: var(--surface); border: 2px solid var(--line); border-radius: 16px; padding: 16px; cursor: pointer; display: grid; gap: 4px; justify-items: start; }
+.topic:hover { border-color: var(--indigo); }
+.topic.mix { border-color: var(--gold); background: var(--gold-soft); }
+.topic-no { font-family: var(--f-display); font-size: 18px; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo-soft); color: var(--indigo); }
+.topic.mix .topic-no { background: var(--gold); color: var(--surface); }
+.topic-name { font-family: var(--f-display); font-size: 20px; line-height: 1.2; }
+.topic-sub { font-size: 14px; color: var(--ink-soft); font-weight: 700; }
+#quiz-stage { margin-top: 12px; }
+.stage-body { background: var(--surface-2); border: 1px solid var(--line); border-top: 0; border-radius: 0 0 16px 16px; padding: 16px; display: grid; gap: 14px; }
+.counter { font-weight: 800; font-size: 15px; opacity: .9; }
+.nav-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.nav-row .btn { min-height: 46px; padding-inline: 22px; font-size: 16px; }
+.review { text-align: left; width: 100%; display: grid; gap: 8px; margin-top: 6px; }
+.review h4 { margin: 0; font-family: var(--f-display); font-size: 18px; color: var(--bad); }
+.review .item { background: var(--surface-2); border-radius: 10px; padding: 8px 12px; font-size: 15px; }
+.review .item b { color: var(--ok); }
+.summary .actions { justify-content: center; }
+.video { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.song a { color: var(--indigo); font-weight: 800; }
+footer { margin-top: 32px; font-size: 14px; color: var(--ink-soft); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (max-width: 520px) { .match { gap: 6px 8px; } .chip { font-size: 14px; padding: 7px 9px; } .q { padding: 12px; } .qlist { padding: 10px; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <span class="eyebrow">Pendidikan Islam JAIS · Feqah Tahun 2</span>
+    <h1>Nota Ringkas &amp; Kuiz Feqah</h1>
+    <p class="lead">Baca nota setiap tajuk dahulu, kemudian buka menu Kuiz. Setiap set 10 soalan rawak, satu demi satu. Jawapan disemak terus: hijau betul, merah salah.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Menu">
+    <button role="tab" id="tab-wajib" aria-controls="p-wajib" aria-selected="true"><span class="n">1</span>Mandi Wajib</button>
+    <button role="tab" id="tab-sunat" aria-controls="p-sunat" aria-selected="false"><span class="n">2</span>Mandi Sunat</button>
+    <button role="tab" id="tab-kuiz" class="tab-kuiz" aria-controls="p-kuiz" aria-selected="false"><span class="n">?</span>Kuiz</button>
+  </nav>
+
+  <!-- ============ KUIZ ============ -->
+  <section id="p-kuiz" role="tabpanel" aria-labelledby="tab-kuiz" hidden>
+    <div id="quiz-menu">
+      <div class="panel-head"><h2>Kuiz Feqah</h2><span class="pages">Setiap set 10 soalan, berbeza setiap kali dibuka</span></div>
+      <div class="menu-grid">
+        <button type="button" class="topic" data-topic="wajib"><span class="topic-no">1</span><span class="topic-name">Mandi Wajib</span><span class="topic-sub" data-pages="m/s 19–27"></span></button>
+        <button type="button" class="topic" data-topic="sunat"><span class="topic-no">2</span><span class="topic-name">Mandi Sunat</span><span class="topic-sub" data-pages="m/s 28–31"></span></button>
+        <button type="button" class="topic mix" data-topic="campur"><span class="topic-no">★</span><span class="topic-name">Campuran kedua-dua topik</span><span class="topic-sub" data-pages="semua topik"></span></button>
+      </div>
+    </div>
+    <div id="quiz-stage" hidden></div>
+  </section>
+
+  <!-- ============ MANDI WAJIB ============ -->
+  <section id="p-wajib" role="tabpanel" aria-labelledby="tab-wajib">
+    <div class="panel-head">
+      <h2>Mandi Wajib</h2>
+      <span class="pages">Buku teks m/s 19–27</span>
+    </div>
+    <div class="jawi-title">مندي واجب</div>
+
+    <div class="notes">
+      <div class="key">Mandi wajib ialah <strong>mengalir dan meratakan air mutlak</strong> ke seluruh anggota badan dengan <strong>niat mandi wajib</strong>.</div>
+
+      <div class="block">
+        <h3>Dalil mandi wajib</h3>
+        <div class="ayat">وَإِن كُنتُمْ جُنُبًا فَاطَّهَّرُوا</div>
+        <p class="maksud">Jika kamu berjunub (berhadas besar) maka hendaklah kamu bersuci (mandi wajib).</p>
+        <span class="ref">SURAH AL-MA'IDAH: 6</span>
+      </div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Sebab-sebab mandi wajib</h3>
+          <ul>
+            <li>Keluar air mani</li>
+            <li>Bersetubuh</li>
+            <li>Haid</li>
+            <li>Nifas</li>
+            <li>Melahirkan anak</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Rukun mandi wajib (3)</h3>
+          <ul>
+            <li>Menghilangkan najis daripada badan.</li>
+            <li>Niat.</li>
+            <li>Meratakan air ke seluruh anggota badan.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Lafaz niat mandi wajib</h3>
+        <div class="ayat">نَوَيْتُ رَفْعَ الْحَدَثِ الْأَكْبَرِ لِلَّهِ تَعَالَى</div>
+        <p class="maksud">Sahaja aku mengangkat hadas besar kerana Allah Ta'ala.</p>
+      </div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Sunat-sunat mandi wajib (11)</h3>
+          <ol class="steps">
+            <li>Membaca <span class="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span></li>
+            <li>Membasuh kemaluan dengan tangan kiri.</li>
+            <li>Membasuh tangan tiga kali.</li>
+            <li>Berwuduk.</li>
+            <li>Membasuh kepala dengan air tiga kali dan menyelati rambut dan bulu-bulu yang jarang.</li>
+            <li>Mendahulukan anggota sebelah kanan.</li>
+            <li>Membasuh seluruh anggota sebanyak tiga kali.</li>
+            <li>Menggosok seluruh anggota badan.</li>
+            <li>Membasuh kaki.</li>
+            <li>Membaca doa seperti doa selepas wuduk.</li>
+            <li>Melakukannya secara berturutan.</li>
+          </ol>
+        </div>
+        <div class="block">
+          <h3>Cara-cara mandi wajib (10)</h3>
+          <ol class="steps">
+            <li>Hilangkan najis pada badan.</li>
+            <li>Mulakan dengan <span class="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</span></li>
+            <li>Membasuh kemaluan.</li>
+            <li>Membasuh tangan tiga kali.</li>
+            <li>Berwuduk.</li>
+            <li>Niat mandi wajib.</li>
+            <li>Membasuh kepala dengan air tiga kali dan menyelati rambut.</li>
+            <li>Mendahulukan anggota badan sebelah kanan.</li>
+            <li>Meratakan air sehingga sampai ke seluruh anggota badan.</li>
+            <li>Membaca doa seperti doa selepas berwuduk.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Tahukah anda?</h3>
+          <p>Tidak sah solat bagi seseorang yang berhadas besar.</p>
+        </div>
+        <div class="block">
+          <h3>Amalkan</h3>
+          <p>Hendaklah mandi sunat Jumaat bagi sesiapa yang akan hadir solat Jumaat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANDI SUNAT ============ -->
+  <section id="p-sunat" role="tabpanel" aria-labelledby="tab-sunat" hidden>
+    <div class="panel-head">
+      <h2>Mandi Sunat</h2>
+      <span class="pages">Buku teks m/s 28–31</span>
+    </div>
+    <div class="jawi-title">مندي سنة</div>
+
+    <div class="notes">
+      <div class="block">
+        <h3>Jenis-jenis mandi sunat</h3>
+        <div class="tbl-wrap">
+          <table>
+            <tbody>
+              <tr><td class="num">1</td><td>Mandi sunat Hari Raya</td></tr>
+              <tr><td class="num">2</td><td>Mandi sunat gerhana</td></tr>
+              <tr><td class="num">3</td><td>Mandi sunat masuk Mekah dan Madinah</td></tr>
+              <tr><td class="num">4</td><td>Mandi sunat selepas memandikan mayat</td></tr>
+              <tr><td class="num">5</td><td>Mandi sunat setelah pulih daripada hilang akal</td></tr>
+              <tr><td class="num">6</td><td>Mandi sunat kerana wukuf di Arafah</td></tr>
+              <tr><td class="num">7</td><td>Mandi sunat kerana ihram</td></tr>
+              <tr><td class="num">8</td><td>Mandi sunat kerana masuk Islam</td></tr>
+              <tr><td class="num">9</td><td>Mandi sunat kerana solat Jumaat</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3>Cara-cara mandi sunat (3)</h3>
+        <ol class="steps">
+          <li>Menghilangkan najis pada badan.</li>
+          <li>Niat.</li>
+          <li>Meratakan air ke seluruh anggota badan.</li>
+        </ol>
+      </div>
+
+      <div class="block">
+        <h3>Lafaz niat mandi sunat</h3>
+        <div class="ayat">نَوَيْتُ الْغُسْلَ سُنَّةً لِلَّهِ تَعَالَى</div>
+        <p class="maksud">Sahaja aku mandi sunat kerana Allah Ta'ala.</p>
+      </div>
+
+      <div class="key">Beza niat: mandi <strong>wajib</strong> menyebut <span class="ar">رَفْعَ الْحَدَثِ الْأَكْبَرِ</span> (mengangkat hadas besar), mandi <strong>sunat</strong> menyebut <span class="ar">الْغُسْلَ سُنَّةً</span> (mandi sunat).</div>
+
+      <div class="grid2">
+        <div class="block">
+          <h3>Tahukah anda?</h3>
+          <ul>
+            <li>Sunat mandi kerana bermalam di Muzdalifah.</li>
+            <li>Sunat mandi sebelum tawaf mengelilingi Kaabah.</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h3>Amalkan</h3>
+          <p>Mandi pada awal pagi sebelum solat Subuh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Disediakan berpandukan Buku Teks Feqah Tahun 2, Sekolah Rendah Agama Negeri Selangor (JAIS).</footer>
+</div>
+
+<script>
+const AR = s => `<span class="ar">${s}</span>`;
+const BISMILLAH = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+const NIAT_WAJIB = 'نَوَيْتُ رَفْعَ الْحَدَثِ الْأَكْبَرِ لِلَّهِ تَعَالَى';
+const NIAT_SUNAT = 'نَوَيْتُ الْغُسْلَ سُنَّةً لِلَّهِ تَعَالَى';
+
+const QUIZ = {
+  wajib: [
+    { t: 'mcq', q: 'Apakah maksud mandi wajib?', o: ['Mengalir dan meratakan air mutlak ke seluruh anggota badan dengan niat mandi wajib', 'Membasuh muka dan tangan sahaja', 'Mandi untuk menyejukkan badan', 'Menyapu air pada kepala'], a: 0 },
+    { t: 'mcq', q: 'Air yang digunakan untuk mandi wajib ialah air...', o: ['Mutlak', 'Kopi', 'Sirap', 'Kotor'], a: 0 },
+    { t: 'tf', q: 'Mandi wajib mesti dilakukan dengan niat mandi wajib.', a: true },
+    { t: 'tf', q: 'Mandi wajib cukup dengan membasuh kepala sahaja.', a: false, why: 'Air mesti diratakan ke seluruh anggota badan.' },
+    { t: 'mcq', q: `Ayat ${AR('وَإِن كُنتُمْ جُنُبًا فَاطَّهَّرُوا')} ialah dalil...`, o: ['Mandi wajib', 'Solat Jumaat', 'Puasa', 'Zakat'], a: 0 },
+    { t: 'mcq', q: 'Dalil mandi wajib terdapat dalam...', o: ["Surah al-Ma'idah: 6", 'Surah al-Fatihah: 1', 'Surah al-Ikhlas: 1', 'Surah al-Baqarah: 285'], a: 0 },
+    { t: 'mcq', q: `Maksud ${AR('جُنُبًا')} (berjunub) ialah...`, o: ['Berhadas besar', 'Berhadas kecil', 'Lapar', 'Sakit'], a: 0 },
+    { t: 'tf', q: 'Jika berjunub (berhadas besar), kita hendaklah bersuci dengan mandi wajib.', a: true },
+    { t: 'mcq', q: 'Manakah antara berikut sebab mandi wajib?', o: ['Haid', 'Makan', 'Tidur', 'Berpeluh'], a: 0 },
+    { t: 'mcq', q: 'Manakah antara berikut sebab mandi wajib?', o: ['Melahirkan anak', 'Bermain bola', 'Hari Raya', 'Gerhana'], a: 0, why: 'Hari Raya dan gerhana ialah sebab mandi sunat.' },
+    { t: 'mcq', q: 'Manakah yang BUKAN sebab mandi wajib?', o: ['Hari Raya', 'Haid', 'Nifas', 'Keluar air mani'], a: 0, why: 'Mandi Hari Raya ialah mandi sunat.' },
+    { t: 'mcq', q: 'Berapakah sebab mandi wajib yang disebut dalam buku teks?', o: ['5', '3', '10', '11'], a: 0 },
+    { t: 'tf', q: 'Nifas ialah salah satu sebab mandi wajib.', a: true },
+    { t: 'tf', q: 'Gerhana ialah salah satu sebab mandi wajib.', a: false, why: 'Mandi kerana gerhana ialah mandi sunat.' },
+    { t: 'mcq', q: 'Berapakah rukun mandi wajib?', o: ['3', '5', '10', '11'], a: 0 },
+    { t: 'mcq', q: 'Manakah antara berikut rukun mandi wajib?', o: ['Niat', 'Berwuduk', 'Membasuh kaki', 'Membaca doa'], a: 0, why: 'Berwuduk, membasuh kaki dan membaca doa ialah sunat mandi wajib.' },
+    { t: 'mcq', q: 'Rukun mandi wajib yang pertama ialah...', o: ['Menghilangkan najis daripada badan', 'Niat', 'Meratakan air ke seluruh anggota badan', 'Berwuduk'], a: 0 },
+    { t: 'mcq', q: 'Rukun mandi wajib yang ketiga ialah...', o: ['Meratakan air ke seluruh anggota badan', 'Niat', 'Membaca bismillah', 'Membasuh tangan'], a: 0 },
+    { t: 'order', q: 'Susun rukun mandi wajib mengikut urutan.', items: ['Menghilangkan najis daripada badan', 'Niat', 'Meratakan air ke seluruh anggota badan'] },
+    { t: 'mcq', q: 'Manakah lafaz niat mandi wajib?', o: [AR(NIAT_WAJIB), AR(NIAT_SUNAT), AR(BISMILLAH), AR('رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً')], a: 0 },
+    { t: 'mcq', q: `Maksud niat ${AR(NIAT_WAJIB)} ialah...`, o: ["Sahaja aku mengangkat hadas besar kerana Allah Ta'ala", "Sahaja aku mandi sunat kerana Allah Ta'ala", "Sahaja aku berwuduk kerana Allah Ta'ala", "Sahaja aku solat kerana Allah Ta'ala"], a: 0 },
+    { t: 'order', q: 'Susun lafaz niat mandi wajib.', ar: true, items: ['نَوَيْتُ', 'رَفْعَ', 'الْحَدَثِ', 'الْأَكْبَرِ', 'لِلَّهِ تَعَالَى'] },
+    { t: 'mcq', q: 'Berapakah sunat mandi wajib?', o: ['11', '3', '5', '10'], a: 0 },
+    { t: 'mcq', q: 'Sunat mandi wajib yang pertama ialah membaca...', o: [AR(BISMILLAH), AR('الْحَمْدُ لِلَّهِ'), AR('اللَّهُ أَكْبَرُ'), AR('سُبْحَانَ اللَّهِ')], a: 0 },
+    { t: 'mcq', q: 'Kemaluan dibasuh dengan tangan...', o: ['Kiri', 'Kanan', 'Kedua-dua tangan', 'Tidak perlu dibasuh'], a: 0 },
+    { t: 'mcq', q: 'Berapa kalikah tangan dibasuh semasa mandi wajib?', o: ['Tiga kali', 'Sekali', 'Dua kali', 'Tujuh kali'], a: 0 },
+    { t: 'mcq', q: 'Anggota sebelah manakah didahulukan semasa mandi wajib?', o: ['Kanan', 'Kiri', 'Belakang', 'Tidak mengapa'], a: 0 },
+    { t: 'tf', q: 'Berwuduk ialah salah satu sunat mandi wajib.', a: true },
+    { t: 'tf', q: 'Kepala dibasuh dengan air tiga kali dan rambut diselati.', a: true },
+    { t: 'tf', q: 'Kita disunatkan membaca doa seperti doa selepas wuduk selepas mandi wajib.', a: true },
+    { t: 'tf', q: 'Sunat mendahulukan anggota sebelah kiri semasa mandi wajib.', a: false, why: 'Sunat mendahulukan anggota sebelah kanan.' },
+    { t: 'tf', q: 'Antara sunat mandi wajib ialah melakukannya secara berturutan.', a: true },
+    { t: 'mcq', q: 'Manakah antara berikut sunat mandi wajib?', o: ['Menggosok seluruh anggota badan', 'Menghilangkan najis', 'Niat', 'Meratakan air ke seluruh badan'], a: 0, why: 'Tiga yang lain ialah rukun mandi wajib.' },
+    { t: 'match', q: 'Padankan sama ada perkara itu rukun atau sunat mandi wajib.', L: 'Perkara', R: 'Hukum', pairs: [
+      ['Niat', 'Rukun'], ['Berwuduk', 'Sunat'] ] },
+    { t: 'match', q: 'Padankan bilangan dengan perkara yang betul.', L: 'Perkara', R: 'Bilangan', pairs: [
+      ['Rukun mandi wajib', '3'], ['Sebab mandi wajib', '5'], ['Cara mandi wajib', '10'], ['Sunat mandi wajib', '11'] ] },
+    { t: 'order', q: 'Susun cara-cara mandi wajib (langkah 1 hingga 5).', items: [
+      'Hilangkan najis pada badan', 'Mulakan dengan bismillah', 'Membasuh kemaluan', 'Membasuh tangan tiga kali', 'Berwuduk' ] },
+    { t: 'order', q: 'Susun cara-cara mandi wajib (langkah 6 hingga 10).', items: [
+      'Niat mandi wajib', 'Membasuh kepala tiga kali dan menyelati rambut', 'Mendahulukan anggota sebelah kanan', 'Meratakan air ke seluruh anggota badan', 'Membaca doa seperti doa selepas berwuduk' ] },
+    { t: 'mcq', q: 'Dalam cara mandi wajib, apakah yang dilakukan selepas berwuduk?', o: ['Niat mandi wajib', 'Membaca doa', 'Membasuh tangan', 'Hilangkan najis'], a: 0 },
+    { t: 'mcq', q: 'Langkah terakhir cara mandi wajib ialah...', o: ['Membaca doa seperti doa selepas berwuduk', 'Niat', 'Berwuduk', 'Membasuh kemaluan'], a: 0 },
+    { t: 'mcq', q: 'Langkah pertama cara mandi wajib ialah...', o: ['Hilangkan najis pada badan', 'Niat', 'Berwuduk', 'Membaca doa'], a: 0 },
+    { t: 'tf', q: 'Solat seseorang yang berhadas besar tidak sah.', a: true },
+    { t: 'mcq', q: 'Apakah hukum solat bagi orang yang berhadas besar?', o: ['Tidak sah', 'Sah', 'Sunat', 'Harus'], a: 0, why: 'Dia mesti mandi wajib dahulu.' },
+    { t: 'mcq', q: 'Ali hendak solat tetapi dia berhadas besar. Apakah yang perlu Ali lakukan dahulu?', o: ['Mandi wajib', 'Makan', 'Tidur', 'Bermain'], a: 0 },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Mandi', 'wajib', 'mesti', 'dengan', 'niat'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Ratakan', 'air', 'ke', 'seluruh', 'badan'] },
+  ],
+
+  sunat: [
+    { t: 'mcq', q: 'Manakah antara berikut mandi sunat?', o: ['Mandi Hari Raya', 'Mandi kerana haid', 'Mandi kerana nifas', 'Mandi kerana melahirkan anak'], a: 0 },
+    { t: 'mcq', q: 'Kita disunatkan mandi sebelum menunaikan solat...', o: ['Jumaat', 'Subuh sahaja', 'Zohor sahaja', 'Isyak sahaja'], a: 0 },
+    { t: 'tf', q: 'Mandi kerana gerhana ialah mandi sunat.', a: true },
+    { t: 'tf', q: 'Mandi Hari Raya ialah mandi wajib.', a: false, why: 'Mandi Hari Raya ialah mandi sunat.' },
+    { t: 'tf', q: 'Sunat mandi selepas memandikan mayat.', a: true },
+    { t: 'tf', q: 'Orang yang baru masuk Islam disunatkan mandi.', a: true },
+    { t: 'tf', q: 'Sunat mandi kerana masuk ke Mekah dan Madinah.', a: true },
+    { t: 'tf', q: 'Sunat mandi kerana ihram.', a: true },
+    { t: 'tf', q: 'Sunat mandi kerana wukuf di Arafah.', a: true },
+    { t: 'tf', q: 'Orang yang pulih daripada hilang akal disunatkan mandi.', a: true },
+    { t: 'tf', q: 'Sunat mandi kerana bermalam di Muzdalifah.', a: true },
+    { t: 'tf', q: 'Sunat mandi sebelum tawaf mengelilingi Kaabah.', a: true },
+    { t: 'tf', q: 'Mandi sunat Hari Raya boleh menggantikan mandi wajib bagi orang yang berhadas besar.', a: false, why: 'Orang yang berhadas besar mesti mandi dengan niat mandi wajib.' },
+    { t: 'mcq', q: 'Mandi sunat dilakukan apabila berlaku...', o: ['Gerhana', 'Haid', 'Nifas', 'Keluar air mani'], a: 0 },
+    { t: 'mcq', q: 'Wukuf dilakukan di...', o: ['Arafah', 'Muzdalifah', 'Madinah', 'Masjid kampung'], a: 0 },
+    { t: 'mcq', q: 'Bilakah kita disunatkan mandi semasa mengerjakan haji?', o: ['Ketika ihram', 'Ketika tidur', 'Ketika makan', 'Ketika membeli-belah'], a: 0 },
+    { t: 'mcq', q: 'Siapakah yang disunatkan mandi selepas memandikan mayat?', o: ['Orang yang memandikan mayat', 'Orang yang melawat sahaja', 'Orang yang menggali kubur', 'Tiada siapa'], a: 0 },
+    { t: 'mcq', q: 'Manakah yang BUKAN mandi sunat?', o: ['Mandi kerana nifas', 'Mandi Hari Raya', 'Mandi kerana solat Jumaat', 'Mandi kerana gerhana'], a: 0, why: 'Nifas ialah sebab mandi wajib.' },
+    { t: 'mcq', q: 'Berapakah cara mandi sunat?', o: ['3', '5', '10', '11'], a: 0 },
+    { t: 'mcq', q: 'Cara mandi sunat yang pertama ialah...', o: ['Menghilangkan najis pada badan', 'Niat', 'Meratakan air', 'Berwuduk'], a: 0 },
+    { t: 'mcq', q: 'Cara mandi sunat yang kedua ialah...', o: ['Niat', 'Membaca doa', 'Menghilangkan najis', 'Membasuh kaki'], a: 0 },
+    { t: 'order', q: 'Susun cara-cara mandi sunat mengikut urutan.', items: ['Menghilangkan najis pada badan', 'Niat', 'Meratakan air ke seluruh anggota badan'] },
+    { t: 'mcq', q: 'Manakah lafaz niat mandi sunat?', o: [AR(NIAT_SUNAT), AR(NIAT_WAJIB), AR(BISMILLAH), AR('اللَّهُ أَكْبَرُ')], a: 0 },
+    { t: 'mcq', q: `Maksud niat ${AR(NIAT_SUNAT)} ialah...`, o: ["Sahaja aku mandi sunat kerana Allah Ta'ala", "Sahaja aku mengangkat hadas besar kerana Allah Ta'ala", "Sahaja aku berwuduk kerana Allah Ta'ala", "Sahaja aku berpuasa kerana Allah Ta'ala"], a: 0 },
+    { t: 'order', q: 'Susun lafaz niat mandi sunat.', ar: true, items: ['نَوَيْتُ', 'الْغُسْلَ', 'سُنَّةً', 'لِلَّهِ تَعَالَى'] },
+    { t: 'match', q: 'Padankan lafaz niat dengan jenis mandi.', L: 'Lafaz niat', R: 'Jenis mandi', pairs: [
+      [AR(NIAT_WAJIB), 'Mandi wajib'], [AR(NIAT_SUNAT), 'Mandi sunat'] ] },
+    { t: 'match', q: 'Padankan sebab dengan jenis mandi.', L: 'Sebab', R: 'Jenis mandi', pairs: [
+      ['Haid', 'Mandi wajib'], ['Hari Raya', 'Mandi sunat'] ] },
+    { t: 'match', q: 'Padankan mandi sunat dengan tempat atau waktunya.', L: 'Mandi sunat', R: 'Tempat / waktu', pairs: [
+      ['Wukuf', 'Arafah'], ['Bermalam', 'Muzdalifah'], ['Tawaf', 'Kaabah'], ['Solat Jumaat', 'Hari Jumaat'] ] },
+    { t: 'mcq', q: 'Amalan baik yang dianjurkan dalam buku teks ialah mandi pada...', o: ['Awal pagi sebelum solat Subuh', 'Tengah malam', 'Waktu tengah hari sahaja', 'Selepas Isyak sahaja'], a: 0 },
+    { t: 'tf', q: 'Kita digalakkan mandi pada awal pagi sebelum solat Subuh.', a: true },
+    { t: 'mcq', q: 'Aminah baru pulih daripada pengsan (hilang akal). Apakah yang disunatkan baginya?', o: ['Mandi sunat', 'Mandi wajib', 'Berpuasa', 'Tidur'], a: 0 },
+    { t: 'mcq', q: 'Pagi Hari Raya, Abu mandi sebelum ke masjid. Mandi itu ialah...', o: ['Mandi sunat Hari Raya', 'Mandi wajib', 'Mandi sunat gerhana', 'Mandi sunat ihram'], a: 0 },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Sunat', 'mandi', 'sebelum', 'solat', 'Jumaat'] },
+    { t: 'order', q: 'Susun perkataan menjadi ayat yang betul.', items: ['Mandi', 'Hari Raya', 'hukumnya', 'sunat'] },
+  ],
+};
+
+const TOPIC_NAME = { wajib: 'Mandi Wajib', sunat: 'Mandi Sunat', campur: 'Campuran kedua-dua topik' };
+const STORE = 'feqah2';
+const HASH_TABS = { wajib: 'tab-wajib', sunat: 'tab-sunat', kuiz: 'tab-kuiz' };
+const FIRST_TAB = 'tab-wajib';
+
+const TYPE_LABEL = { mcq: 'Pilih jawapan', tf: 'Betul / Salah', match: 'Padankan', order: 'Susun' };
+const LETTERS = ['A', 'B', 'C', 'D'];
+
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function shuffleDiff(a) { if (a.length < 2) return a.slice(); let s; do { s = shuffle(a); } while (s.every((x, i) => x === a[i])); return s; }
+function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+const RENDER = () => ({ mcq: renderMcq, tf: renderTf, match: renderMatch, order: renderOrder });
+
+function answerText(q) {
+  if (q.t === 'mcq') return q.o[q.a];
+  if (q.t === 'tf') return q.a ? 'Betul' : 'Salah';
+  if (q.t === 'match') return q.pairs.map(p => `${p[0]} – ${p[1]}`).join('; ');
+  return q.ar ? `<span class="ar">${q.items.join(' ، ')}</span>` : q.items.join(' → ');
+}
+
+const PER_SET = 10;
+const bankOf = t => t === 'campur' ? Object.values(QUIZ).flat() : QUIZ[t];
+// Utamakan soalan yang belum keluar supaya setiap set berbeza; reset bila hampir habis.
+function pickSet(topic) {
+  const bank = bankOf(topic);
+  let seen = [];
+  try { seen = JSON.parse(localStorage.getItem(STORE + '-seen-' + topic) || '[]'); } catch (e) {}
+  let fresh = bank.map((_, i) => i).filter(i => !seen.includes(i));
+  if (fresh.length < PER_SET) { seen = []; fresh = bank.map((_, i) => i); }
+  const chosen = shuffle(fresh).slice(0, PER_SET);
+  try { localStorage.setItem(STORE + '-seen-' + topic, JSON.stringify([...seen, ...chosen])); } catch (e) {}
+  return chosen.map(i => bank[i]);
+}
+
+const menu = document.getElementById('quiz-menu');
+const stage = document.getElementById('quiz-stage');
+
+function startQuiz(topic) {
+  const qs = pickSet(topic);
+  const state = { i: 0, ok: 0, wrong: [] };
+  menu.hidden = true; stage.hidden = false;
+  stage.innerHTML = '';
+
+  const head = el('div', 'quiz-head');
+  const title = el('h3', null, TOPIC_NAME[topic]);
+  const counter = el('span', 'counter');
+  const score = el('span', 'score');
+  head.append(title, counter, score);
+  const prog = el('div', 'progress'); const bar = el('i'); prog.append(bar);
+  const body = el('div', 'stage-body');
+  stage.append(head, prog, body);
+
+  function exitToMenu() { stage.hidden = true; menu.hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  function show() {
+    const q = qs[state.i];
+    counter.textContent = `Soalan ${state.i + 1} / ${qs.length}`;
+    score.textContent = `${state.ok} betul`;
+    bar.style.width = (state.i / qs.length * 100) + '%';
+    body.innerHTML = '';
+
+    const card = el('div', 'q');
+    const meta = el('div', 'q-meta');
+    meta.append(el('span', 'q-no', `Soalan ${state.i + 1}`), el('span', 'q-type', TYPE_LABEL[q.t]));
+    card.append(meta, el('p', 'q-text', q.q));
+
+    const nav = el('div', 'nav-row');
+    const quit = el('button', 'btn ghost', 'Keluar'); quit.type = 'button';
+    const last = state.i === qs.length - 1;
+    const next = el('button', 'btn', last ? 'Lihat keputusan' : 'Seterusnya →'); next.type = 'button'; next.disabled = true;
+    nav.append(quit, next);
+    quit.addEventListener('click', exitToMenu);
+    next.addEventListener('click', () => { if (last) summary(); else { state.i++; show(); } window.scrollTo({ top: stage.offsetTop - 70, behavior: 'smooth' }); });
+
+    const finish = (c, correct) => {
+      if (correct) state.ok++; else state.wrong.push({ n: state.i + 1, q });
+      c.classList.add(correct ? 'done-ok' : 'done-bad');
+      score.textContent = `${state.ok} betul`;
+      bar.style.width = ((state.i + 1) / qs.length * 100) + '%';
+      next.disabled = false; next.focus({ preventScroll: true });
+    };
+    const feedback = (c, correct, extra) => {
+      const fb = el('div', 'fb ' + (correct ? 'ok' : 'bad'), correct ? '✓ Betul! Syabas.' : '✗ Salah.');
+      if (extra) fb.append(el('span', 'why', extra));
+      c.append(fb);
+    };
+    RENDER()[q.t](q, card, finish, feedback);
+    body.append(card, nav);
+  }
+
+  function summary() {
+    counter.textContent = 'Selesai';
+    bar.style.width = '100%';
+    body.innerHTML = '';
+    const pct = state.ok / qs.length;
+    const n = pct >= .9 ? 3 : pct >= .6 ? 2 : pct >= .3 ? 1 : 0;
+    const msg = n === 3 ? 'Cemerlang! Ilmu kamu sangat mantap.' : n === 2 ? 'Bagus! Ulang baca nota untuk soalan yang salah.' : 'Jangan putus asa. Baca nota sekali lagi dan cuba semula.';
+    const s = el('div', 'summary');
+    s.append(el('div', 'stars', '★'.repeat(n) + `<span class="off">${'★'.repeat(3 - n)}</span>`));
+    s.append(el('div', 'big', `${state.ok} / ${qs.length}`));
+    s.append(el('div', null, msg));
+    if (state.wrong.length) {
+      const r = el('div', 'review');
+      r.append(el('h4', null, 'Soalan yang salah'));
+      state.wrong.forEach(w => r.append(el('div', 'item', `<div>${w.n}. ${w.q.q}</div><div>Jawapan: <b>${answerText(w.q)}</b></div>`)));
+      s.append(r);
+    }
+    const acts = el('div', 'actions');
+    const again = el('button', 'btn', 'Cuba lagi'); again.type = 'button';
+    const other = el('button', 'btn ghost', 'Pilih topik lain'); other.type = 'button';
+    again.addEventListener('click', () => startQuiz(topic));
+    other.addEventListener('click', exitToMenu);
+    acts.append(again, other);
+    s.append(acts);
+    body.append(s);
+  }
+
+  show();
+}
+
+document.querySelectorAll('.topic').forEach(b => {
+  const sub = b.querySelector('.topic-sub');
+  sub.textContent = `${PER_SET} soalan rawak setiap set · ${bankOf(b.dataset.topic).length} soalan dalam bank · ${sub.dataset.pages}`;
+  b.addEventListener('click', () => startQuiz(b.dataset.topic));
+});
+
+function renderMcq(q, card, finish, feedback) {
+  const box = el('div', 'opts');
+  const order = shuffle(q.o.map((_, i) => i));
+  const btns = order.map((oi, k) => {
+    const b = el('button', 'opt', `<span class="letter">${LETTERS[k]}</span><span>${q.o[oi]}</span>`);
+    b.type = 'button'; b.dataset.i = oi; box.append(b); return b;
+  });
+  btns.forEach(b => b.addEventListener('click', () => {
+    const correct = +b.dataset.i === q.a;
+    btns.forEach(x => { x.disabled = true; if (+x.dataset.i === q.a) x.classList.add('ok'); else if (x !== b) x.classList.add('dim'); });
+    if (!correct) b.classList.add('bad');
+    feedback(card, correct, correct ? q.why : `Jawapan betul: ${q.o[q.a]}.${q.why ? ' ' + q.why : ''}`);
+    finish(card, correct);
+  }));
+  card.append(box);
+}
+
+function renderTf(q, card, finish, feedback) {
+  const box = el('div', 'opts tf');
+  const mk = (label, val) => { const b = el('button', 'opt', label); b.type = 'button'; b.dataset.v = val; box.append(b); return b; };
+  const btns = [mk('Betul', 'true'), mk('Salah', 'false')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    const correct = (b.dataset.v === 'true') === q.a;
+    btns.forEach(x => { x.disabled = true; if ((x.dataset.v === 'true') === q.a) x.classList.add('ok'); else if (x !== b) x.classList.add('dim'); });
+    if (!correct) b.classList.add('bad');
+    feedback(card, correct, correct ? q.why : `Pernyataan ini ${q.a ? 'BETUL' : 'SALAH'}.${q.why ? ' ' + q.why : ''}`);
+    finish(card, correct);
+  }));
+  card.append(box);
+}
+
+function renderMatch(q, card, finish, feedback) {
+  card.append(el('p', 'hint', 'Tekan satu di kiri, kemudian tekan pasangannya di kanan.'));
+  const wrap = el('div', 'match');
+  const lc = el('div', 'col'), rc = el('div', 'col');
+  lc.append(el('div', 'col-h', q.L)); rc.append(el('div', 'col-h', q.R));
+  const left = q.pairs.map((p, i) => { const b = el('button', 'chip', p[0]); b.type = 'button'; b.dataset.i = i; return b; });
+  const right = shuffleDiff(q.pairs.map((_, i) => i)).map(i => { const b = el('button', 'chip', q.pairs[i][1]); b.type = 'button'; b.dataset.i = i; return b; });
+  left.forEach(b => lc.append(b)); right.forEach(b => rc.append(b));
+  wrap.append(lc, rc); card.append(wrap);
+
+  let sel = null, mistakes = 0, matched = 0;
+  left.forEach(b => b.addEventListener('click', () => {
+    if (b.classList.contains('matched')) return;
+    left.forEach(x => x.classList.remove('sel')); b.classList.add('sel'); sel = b;
+  }));
+  right.forEach(b => b.addEventListener('click', () => {
+    if (b.classList.contains('matched')) return;
+    if (!sel) { left.find(x => !x.classList.contains('matched'))?.focus(); return; }
+    if (b.dataset.i === sel.dataset.i) {
+      matched++;
+      [sel, b].forEach(x => { x.classList.remove('sel'); x.classList.add('matched'); x.disabled = true; x.insertAdjacentHTML('afterbegin', `<span class="pairno">${matched}</span>`); });
+      sel = null;
+      if (matched === q.pairs.length) {
+        const correct = mistakes === 0;
+        feedback(card, correct, correct ? 'Semua padanan betul pada cubaan pertama.' : `Selesai, tetapi ada ${mistakes} padanan salah. Cuba ingat semula jadual dalam nota.`);
+        finish(card, correct);
+      }
+    } else {
+      mistakes++;
+      const pair = [b, sel];
+      pair.forEach(x => { x.classList.remove('wrong'); void x.offsetWidth; x.classList.add('wrong'); });
+      setTimeout(() => pair.forEach(x => x.classList.remove('wrong')), 450);
+    }
+  }));
+}
+
+function renderOrder(q, card, finish, feedback) {
+  card.append(el('p', 'hint', 'Tekan kad mengikut urutan. Tekan kad di dalam kotak untuk mengeluarkannya semula.'));
+  const fmt = s => q.ar ? `<span class="ar">${s}</span>` : s;
+  const slotsBox = el('div', 'slots');
+  const slots = q.items.map((_, i) => { const s = el('div', 'slot', `<span class="sn">${i + 1}</span>`); slotsBox.append(s); return s; });
+  const pool = el('div', 'pool');
+  const placed = new Array(q.items.length).fill(null);
+  const actions = el('div', 'actions');
+  const check = el('button', 'btn', 'Semak jawapan'); check.type = 'button'; check.disabled = true;
+  const reset = el('button', 'btn ghost', 'Mula semula'); reset.type = 'button';
+  actions.append(check, reset);
+  card.append(slotsBox, pool, actions);
+
+  const chips = shuffleDiff(q.items.map((_, i) => i)).map(i => {
+    const c = el('button', 'chip', fmt(q.items[i])); c.type = 'button'; c.dataset.i = i; pool.append(c); return c;
+  });
+  let locked = false;
+  function refresh() { check.disabled = placed.some(p => p === null); }
+  chips.forEach(c => c.addEventListener('click', () => {
+    if (locked) return;
+    const at = placed.indexOf(c);
+    if (at >= 0) { placed[at] = null; pool.append(c); }
+    else { const free = placed.indexOf(null); if (free < 0) return; placed[free] = c; slots[free].append(c); }
+    refresh();
+  }));
+  reset.addEventListener('click', () => {
+    if (locked) return;
+    placed.forEach((c, k) => { if (c) { pool.append(c); placed[k] = null; } }); refresh();
+  });
+  check.addEventListener('click', () => {
+    locked = true; check.disabled = true; reset.disabled = true;
+    let correct = true;
+    placed.forEach((c, k) => { const good = +c.dataset.i === k; if (!good) correct = false; slots[k].classList.add(good ? 'ok' : 'bad'); c.disabled = true; });
+    const ans = q.items.map((s, k) => `${k + 1}. ${s}`).join(q.ar ? ' &nbsp; ' : ' → ');
+    feedback(card, correct, correct ? null : `Urutan betul: ${q.ar ? `<span class="ar">${ans}</span>` : ans}`);
+    finish(card, correct);
+  });
+}
+
+// Tabs
+const tabs = [...document.querySelectorAll('nav.tabs button')];
+function selectTab(btn) {
+  tabs.forEach(t => { const on = t === btn; t.setAttribute('aria-selected', on); document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+  try { localStorage.setItem(STORE + '-tab', btn.id); } catch (e) {}
+}
+tabs.forEach(t => t.addEventListener('click', () => { selectTab(t); window.scrollTo({ top: 0, behavior: 'smooth' }); }));
+const hashTab = HASH_TABS[location.hash.slice(1)];
+let saved = null; try { saved = localStorage.getItem(STORE + '-tab'); } catch (e) {}
+const startTab = document.getElementById(hashTab || saved || FIRST_TAB);
+if (startTab) selectTab(startTab);
+</script>
+</body>
+</html>
